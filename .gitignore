@@ -1,0 +1,9 @@
+build/
+dist/
+doctrees/
+flaremodel.egg-info/
+notebooks/
+!notebooks/*.ipynb
+flaremodel/__pycache__/
+flaremodel/*/__pycache__/
+flaremodel/utils/*.{so,c}

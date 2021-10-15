@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Electron Distributions &mdash; flaremodel 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Low Level Utilities" href="Utils.html" />
+    <link rel="prev" title="Getting Started" href="GettingStarted.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> flaremodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Electron Distributions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-add-new-electron-distributions">How to add new electron distributions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Utils.html">Low Level Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Geometries.html">Geometries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TempEvolution.html">Temporal Evolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fitting.html">Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LICENSE.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">flaremodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Electron Distributions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/EDist.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="electron-distributions">
+<h1>Electron Distributions<a class="headerlink" href="#electron-distributions" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="flaremodel.eDist">
+<code class="sig-name descname">eDist</code><span class="sig-paren">(</span><em class="sig-param">double[::1] gamma</em>, <em class="sig-param">double ne</em>, <em class="sig-param">list params</em>, <em class="sig-param">unicode edist</em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.eDist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Common function for built-in electron distributions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gamma</strong> (<em>np.ndarray</em>) – 1-D gamma array (C contiguous)</p></li>
+<li><p><strong>ne</strong> (<em>float</em>) – Number of electrons</p></li>
+<li><p><strong>params</strong> (<em>list of floats</em>) – <dl class="simple">
+<dt>Electron distributions parameters varies based on edist</dt><dd><ul>
+<li><p>”thermal” : theta_E</p></li>
+<li><p>”kappa” : kappa, kappa_width</p></li>
+<li><p>”powerlaw” : p, g_min, g_max</p></li>
+<li><p>”bknpowerlaw” : p1, p2, g_break, g_min, g_max</p></li>
+<li><p>”powerlawexpcutoff” : p, g_min, g_max</p></li>
+<li><p>”bknpowerlawexpcutoff” : p1, p2, g_break, g_min, g_max</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>edist</strong> (<em>str</em>) – see params</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>dN/dgamma</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="how-to-add-new-electron-distributions">
+<h2>How to add new electron distributions<a class="headerlink" href="#how-to-add-new-electron-distributions" title="Permalink to this headline">¶</a></h2>
+<p>Unfortunately, we are not able to provide a convenient way to add new electron distributions in python as electron distributions
+are tightly integrated in C utilities at lower level. But, C interface is modular and it is possible to add new distributions on the source code.</p>
+<p>Our powerlaw implementation at C level is given below:</p>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="c1">// cfuncs/edist.c</span>
+<span class="c1">//...</span>
+
+<span class="c1">// params : p, gamma_min, gamma_max</span>
+<span class="kt">double</span> <span class="nf">powerlaw</span><span class="p">(</span><span class="kt">double</span> <span class="n">gamma</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">params</span><span class="p">){</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="o">*</span><span class="p">)</span> <span class="n">params</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">pow</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="c1">//...</span>
+
+<span class="kt">double</span> <span class="nf">powerlaw_norm</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">params</span><span class="p">){</span>
+    <span class="kt">double</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">double</span><span class="o">*</span><span class="p">)</span> <span class="n">params</span><span class="p">;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">P_THRESH</span> <span class="o">&gt;</span> <span class="n">fabs</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">?</span> <span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="o">:</span> <span class="p">(</span><span class="n">pow</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="n">pow</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">-</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">//...</span>
+
+<span class="c1">// cfuncs/edist.h</span>
+<span class="c1">//...</span>
+<span class="c1">// params : p, gamma_min, gamma_max</span>
+<span class="kt">double</span> <span class="nf">powerlaw</span><span class="p">(</span><span class="kt">double</span> <span class="n">gamma</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">params</span><span class="p">);</span>
+<span class="c1">//...</span>
+<span class="kt">double</span> <span class="nf">powerlaw_norm</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">params</span><span class="p">);</span>
+<span class="c1">//...</span>
+</pre></div>
+</div>
+<p>Then, the distribution needs to be registered with a name tag in Cython interface. This makes the distribution available to the rest of the code with the given name tag.</p>
+<div class="highlight-Cython notranslate"><div class="highlight"><pre><span></span><span class="c"># flaremodel/utils/cfuncs.pyx</span>
+
+<span class="c"># ...</span>
+
+<span class="k">cdef</span> <span class="kr">extern</span> <span class="k">from</span> <span class="s">&quot;edist.h&quot;</span><span class="p">:</span>
+    <span class="n">double</span> <span class="n">powerlaw</span> <span class="p">(</span><span class="n">double</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span><span class="p">)</span> <span class="c"># &lt;--</span>
+    <span class="n">double</span> <span class="n">powerlawexpcutoff</span> <span class="p">(</span><span class="n">double</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="n">double</span> <span class="n">thermal</span> <span class="p">(</span><span class="n">double</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="n">double</span> <span class="n">kappa</span> <span class="p">(</span><span class="n">double</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="n">double</span> <span class="n">bknpowerlaw</span> <span class="p">(</span><span class="n">double</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="n">double</span> <span class="n">bknpowerlawexpcutoff</span> <span class="p">(</span><span class="n">double</span><span class="p">,</span> <span class="n">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="n">double</span> <span class="n">powerlaw_norm</span> <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span> <span class="c"># &lt;--</span>
+    <span class="n">double</span> <span class="n">thermal_norm</span> <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="n">double</span> <span class="n">kappa_norm</span> <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="n">double</span> <span class="n">bknpowerlaw_norm</span> <span class="p">(</span><span class="n">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="nb">int</span> <span class="n">c_eDist</span>         <span class="s">&quot;eDist&quot;</span>         <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="c"># ...</span>
+
+<span class="k">cdef</span> <span class="nf">_set_source_params</span><span class="p">(</span><span class="n">Source</span> <span class="o">*</span><span class="n">source_t</span><span class="p">,</span> <span class="nb">str</span> <span class="n">edist</span><span class="p">):</span>
+
+    <span class="k">cdef</span> <span class="kt">double</span> *<span class="nf">params</span> <span class="o">=</span> <span class="n">source_t</span><span class="o">.</span><span class="n">params</span>
+
+    <span class="k">if</span> <span class="n">edist</span> <span class="o">==</span> <span class="s">&quot;powerlaw&quot;</span><span class="p">:</span> <span class="c"># &lt;--</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">gamma_min</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">gamma_max</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">d_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">powerlaw</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">n_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">powerlaw_norm</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s">&quot;thermal&quot;</span><span class="p">:</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">d_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">thermal</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">n_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">thermal_norm</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s">&quot;kappa&quot;</span><span class="p">:</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">d_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">kappa</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">n_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">kappa_norm</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s">&quot;bknpowerlaw&quot;</span><span class="p">:</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">gamma_min</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mf">3</span><span class="p">]</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">gamma_max</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mf">4</span><span class="p">]</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">d_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bknpowerlaw</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">n_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bknpowerlaw_norm</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s">&quot;powerlawexpcutoff&quot;</span><span class="p">:</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">gamma_min</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">gamma_max</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span><span class="o">*</span><span class="mf">10</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">d_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">powerlawexpcutoff</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">n_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">powerlaw_norm</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s">&quot;bknpowerlawexpcutoff&quot;</span><span class="p">:</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">gamma_min</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mf">3</span><span class="p">]</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">gamma_max</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mf">4</span><span class="p">]</span><span class="o">*</span><span class="mf">10</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">d_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bknpowerlawexpcutoff</span>
+        <span class="n">source_t</span><span class="o">.</span><span class="n">n_func</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">bknpowerlaw_norm</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> not implemented&quot;</span> <span class="o">%</span> <span class="n">edist</span><span class="p">)</span>
+
+<span class="c"># ...</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Utils.html" class="btn btn-neutral float-right" title="Low Level Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="GettingStarted.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Yigit Dallilar, Sebastiano von Fellenberg
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

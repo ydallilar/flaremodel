@@ -1,0 +1,4 @@
+include cfuncs/*h
+include flaremodel/utils/cfuncs.pyx
+include notebooks/*ipynb
+graft html/

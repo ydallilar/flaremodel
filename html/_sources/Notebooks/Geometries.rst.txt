@@ -1,0 +1,122 @@
+Geometry Interface
+==================
+
+.. currentmodule:: flaremodel
+
+.. code:: ipython3
+
+    import flaremodel as fm
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+.. code:: ipython3
+
+    nus = np.logspace(10, 24, 100)
+    
+    B, ne, R_in, p, g_min, g_max, incang, steps = 10, 1e6, 0, 3, 10., 2e4, -1, 64
+    
+    edist = "powerlaw"
+    params = [p, g_min, g_max]
+    
+    #This would give rough scaling with Thompson scattering approximation between synchrotron and SSC.
+    R = 2/(fm.sigma_T*ne*np.log(g_max/g_min)*g_min**(p-1))
+    print("R = %.1e cm" % R)
+
+
+.. parsed-literal::
+
+    R = 4.0e+15 cm
+
+
+With this initialization, :class:`RadialSphere` is equivalent to :class:`HomogeneousSphere`. 
+
+.. code:: ipython3
+
+    homo_sp = fm.HomogeneousSphere(edist=edist)
+    rad_sp_cpu = fm.RadialSphere(edist=edist, target="cpu")
+    rad_sp_gpu = fm.RadialSphere(edist=edist, target="gpu")
+
+Synchrotron SED can be calculated as follows,
+
+.. code:: ipython3
+
+    sync_h = homo_sp.compute_synchrotron(nus, ne, [R, incang], B, params)
+    sync_r = rad_sp_cpu.compute_synchrotron(nus, ne, [R, R_in, incang], B, params)
+
+Note that SSC calculations requires setting proper integration limits. 
+Gamma limits are adapted from electron distribution parameters.
+Default range for the seed photons is :math:`\nu=[10^8, 10^{17}]` Hz.
+Although it is excessive for this case, will work fine.
+
+.. code:: ipython3
+
+    ssc_h = homo_sp.compute_SSC(nus, ne, [R, incang], B, params, gamma_min=g_min, gamma_max=g_max)
+    ssc_cpu = rad_sp_cpu.compute_SSC(nus, ne, [R, R_in, incang], B, params, gamma_min=g_min, gamma_max=g_max)
+    ssc_gpu = rad_sp_gpu.compute_SSC(nus, ne, [R, R_in, incang], B, params, gamma_min=g_min, gamma_max=g_max)
+
+This is an example for inverse Compton scattering. 
+Essentially, SSC on :class:`RadialSphere` but with photon densities of :class:`HomogeneousSphere`
+
+.. code:: ipython3
+
+    n_ph_fun = lambda nu: homo_sp._compute_photon_density(nu, ne, [R, incang], B, params)
+    ic_cpu = rad_sp_cpu.compute_IC(nus, ne, n_ph_fun, [R, R_in, incang], B, params, gamma_min=g_min, gamma_max=g_max)
+    ic_cpu = rad_sp_gpu.compute_IC(nus, ne, n_ph_fun, [R, R_in, incang], B, params, gamma_min=g_min, gamma_max=g_max)
+
+.. code:: ipython3
+
+    plt.figure(figsize=(10, 8))
+    plt.loglog(nus, sync_h*nus, 'k-')
+    plt.loglog(nus, ssc_h*nus, "r-")
+    plt.loglog(nus, sync_r*nus, 'k.')
+    plt.loglog(nus, ssc_cpu*nus, 'ro')
+    plt.loglog(nus, ssc_gpu*nus, 'y.')
+    plt.loglog(nus, ic_cpu*nus, 'b.')
+    plt.ylabel(r"$\nu L_\nu$ [erg s-1]")
+    plt.xlabel("Frequency [Hz]")
+    plt.ylim([1e41, 4e43]);
+
+
+
+
+.. parsed-literal::
+
+    (1e+41, 4e+43)
+
+
+
+
+.. image:: Geometries_files/Geometries_11_1.png
+
+
+Doppler Boosting
+================
+
+.. code:: ipython3
+
+    boost_p1 = [0.3, 0, -1] # Not physical but for testing purposes
+    sync_h_b1 = homo_sp.compute_synchrotron(nus, ne, [R, incang], B, params, boost_p1)
+    boost_p2 = [0.3, 0, 3]
+    sync_h_b2 = homo_sp.compute_synchrotron(nus, ne, [R, incang], B, params, boost_p2)
+    plt.figure(figsize=(10, 8))
+    plt.loglog(nus, sync_h*nus, 'k-')
+    plt.loglog(nus, sync_h_b1*nus, 'r-')
+    plt.loglog(nus, sync_h_b2*nus, 'b-')
+    plt.ylabel(r"$\nu L_\nu$ [erg s-1]")
+    plt.xlabel("Frequency [Hz]")
+    plt.xlim([1e10, 1e18])
+    plt.ylim([1e41, 4e43]);
+
+
+
+
+.. parsed-literal::
+
+    (1e+41, 4e+43)
+
+
+
+
+.. image:: Geometries_files/Geometries_13_1.png
+
+

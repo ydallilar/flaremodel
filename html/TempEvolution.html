@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Temporal Evolution &mdash; flaremodel 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Fitting" href="Fitting.html" />
+    <link rel="prev" title="Geometries" href="Geometries.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> flaremodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EDist.html">Electron Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utils.html">Low Level Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Geometries.html">Geometries</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Temporal Evolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fitting.html">Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LICENSE.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">flaremodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Temporal Evolution</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/TempEvolution.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="temporal-evolution">
+<h1>Temporal Evolution<a class="headerlink" href="#temporal-evolution" title="Permalink to this headline">¶</a></h1>
+<p>We provide two special cases of temporal evolution for electrons. These are built around <a class="reference internal" href="Utils.html#flaremodel.cool_onestep" title="flaremodel.cool_onestep"><code class="xref py py-func docutils literal notranslate"><span class="pre">cool_onestep()</span></code></a>.
+Although the function itself fast, temporal evolution requires many iterations using it.
+But, python is very slow and iterations requiring python operations can introduce huge performance hit.
+Source code for these avialable in <cite>flaremodel/temporal.py</cite> for guidance.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">dt</span></code> is not small enough, these will produce garbage results. Need to add a warning mechanism when it is the case (TBD).</p>
+</div>
+<dl class="class">
+<dt id="flaremodel.vdLEdist">
+<em class="property">class </em><code class="sig-name descname">vdLEdist</code><span class="sig-paren">(</span><em class="sig-param">g_min=1.0</em>, <em class="sig-param">g_max=100000.0</em>, <em class="sig-param">g_steps=50</em>, <em class="sig-param">sync_cool=True</em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.vdLEdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerical simulation of adiabatic cooling for a spherical source.
+Gamma array can be obtained with vdLEdist._gamma.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g_min</strong> (<em>float</em><em>, </em><em>default=1</em>) – Minimum gamma of the grid</p></li>
+<li><p><strong>g_max</strong> (<em>float</em><em>, </em><em>default=1e5</em>) – Maximum gamma of the grid</p></li>
+<li><p><strong>g_steps</strong> (<em>float</em><em>, </em><em>default=50</em>) – Gamma steps per decade in logspace</p></li>
+<li><p><strong>sync_cool</strong> (<em>boolean</em><em>, </em><em>default=True</em>) – Whether to enable/disable synchrotron cooling</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="flaremodel.vdLEdist.get_ngamma">
+<code class="sig-name descname">get_ngamma</code><span class="sig-paren">(</span><em class="sig-param">ts</em>, <em class="sig-param">N_e</em>, <em class="sig-param">B</em>, <em class="sig-param">R</em>, <em class="sig-param">exp_b</em>, <em class="sig-param">dt</em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.vdLEdist.get_ngamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return electron distribution for array of ts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> (<em>np.ndarray</em>) – 1-D time stamps to request electron distribution [s]</p></li>
+<li><p><strong>N_e</strong> (<em>float</em>) – Initial number of electrons</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Initial magnetic field [G]</p></li>
+<li><p><strong>R</strong> (<em>float</em>) – Initial size of the “blob” [cm]</p></li>
+<li><p><strong>exp_b</strong> (<em>float</em>) – Fixed expansion speed in units of c</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time resolution [s]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>Rs</strong> (<em>np.ndarray</em>) – 1-D array of R(ts) [cm]</p></li>
+<li><p><strong>Bs</strong> (<em>np.ndarray</em>) – 1-D array of B(ts) with B(R)~R^-2 [G]</p></li>
+<li><p><strong>Ne_t</strong> (<em>np.ndarray</em>) – 2-D array Ne_t(ts, gamma)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="flaremodel.GaussianInjectionEdist">
+<em class="property">class </em><code class="sig-name descname">GaussianInjectionEdist</code><span class="sig-paren">(</span><em class="sig-param">sig_inj</em>, <em class="sig-param">t_peak_inj</em>, <em class="sig-param">t_esc=1e+99</em>, <em class="sig-param">g_min=1</em>, <em class="sig-param">g_max=100000.0</em>, <em class="sig-param">g_steps=50</em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.GaussianInjectionEdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerical simulation of particle injection with Gaussian profile including synchrotron cooling and particle escape.
+Gamma array can be obtained with GaussianInjectionEdist._gamma.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sig_inj</strong> (<em>float</em>) – Sigma of the particle injection profile [s]</p></li>
+<li><p><strong>t_peak_inj</strong> (<em>float</em>) – Peak time of the injection profile [s]</p></li>
+<li><p><strong>g_min</strong> (<em>float</em><em>, </em><em>default=1</em>) – Minimum gamma of the grid</p></li>
+<li><p><strong>g_max</strong> (<em>float</em><em>, </em><em>default=1e5</em>) – Maximum gamma of the grid</p></li>
+<li><p><strong>g_steps</strong> (<em>float</em><em>, </em><em>default=50</em>) – Gamma steps per decade in logspace</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="flaremodel.GaussianInjectionEdist.get_ngamma">
+<code class="sig-name descname">get_ngamma</code><span class="sig-paren">(</span><em class="sig-param">ts</em>, <em class="sig-param">N_e</em>, <em class="sig-param">B</em>, <em class="sig-param">dt</em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.GaussianInjectionEdist.get_ngamma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return electron distribution for array of ts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ts</strong> (<em>np.ndarray</em>) – 1-D time stamps to request electron distribution [s]</p></li>
+<li><p><strong>N_e</strong> (<em>float</em>) – Total number of injected electrons</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Initial magnetic field [G]</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time resolution [s]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Ne_t</strong> – 2-D array Ne_t(ts, gamma)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Fitting.html" class="btn btn-neutral float-right" title="Fitting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Geometries.html" class="btn btn-neutral float-left" title="Geometries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Yigit Dallilar, Sebastiano von Fellenberg
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

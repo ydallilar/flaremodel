@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Accuracy - Synchrotron emission/absorption coefficients &mdash; flaremodel 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Modeling of SgrA* sub-mm bump" href="Fitting.html" />
+    <link rel="prev" title="Synchrotron Cooling" href="SyncCool.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> flaremodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EDist.html">Electron Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Utils.html">Low Level Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Geometries.html">Geometries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TempEvolution.html">Temporal Evolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Fitting.html">Fitting</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Geometries.html">Geometry Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Geometries.html#doppler-boosting">Doppler Boosting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PowerlawSphere.html">Powerlaw Sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PhotonDensities.html">Photon Densities on Homogeneous Sphere</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AdiabaticExp.html">Adiabatic Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SyncCool.html">Synchrotron Cooling</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Accuracy - Synchrotron emission/absorption coefficients</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#thermal-distribution">Thermal Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#powerlaw-distribution">Powerlaw Distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Fitting.html">Modeling of SgrA* sub-mm bump</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../LICENSE.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">flaremodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../Examples.html">Examples</a> &raquo;</li>
+        
+      <li>Accuracy - Synchrotron emission/absorption coefficients</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/Notebooks/Comparison.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="accuracy-synchrotron-emission-absorption-coefficients">
+<h1>Accuracy - Synchrotron emission/absorption coefficients<a class="headerlink" href="#accuracy-synchrotron-emission-absorption-coefficients" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span><span class="p">;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/home/ydallilar/.software/source/symphony/build/&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">flaremodel</span> <span class="k">as</span> <span class="nn">fm</span>
+<span class="kn">import</span> <span class="nn">symphonyPy</span>
+
+<span class="n">SAVE_PLOT</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">symphony_njobs</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="c1"># Setup parameters used in comparison</span>
+<span class="n">ne</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">theta_E</span> <span class="o">=</span> <span class="mf">30.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">3.</span>
+<span class="n">gamma_min</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">gamma_max</span> <span class="o">=</span> <span class="mf">1e3</span>
+<span class="n">p_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">B</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">kappa</span> <span class="o">=</span> <span class="n">p</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># p = 3.5</span>
+<span class="n">kappa_w</span> <span class="o">=</span> <span class="n">theta_E</span>
+
+<span class="n">nu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">nu_c</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">nu_crit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p_angle</span><span class="p">)</span>
+
+<span class="c1"># We use basic grid integration scheme, steps is grid points per factor of 10 in gamma,</span>
+<span class="c1"># g_min_br/g_max_br are gamma limits used in integration. These are the defaults and for most</span>
+<span class="c1"># purposes should be enough. Powerlaw distribution overwrites these so that integration is limited</span>
+<span class="c1"># to given gamma_min/gamma_max parameters of the distribution.</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">g_min_br</span> <span class="o">=</span> <span class="mf">1.1</span>
+<span class="n">g_max_br</span> <span class="o">=</span> <span class="mf">1e7</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">j_nu_sym</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">edist</span><span class="p">,</span> <span class="n">incang</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">edist</span> <span class="o">==</span> <span class="s2">&quot;thermal&quot;</span><span class="p">:</span>
+        <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">nu_t</span><span class="p">:</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">j_nu_py</span><span class="p">(</span><span class="n">nu_t</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">incang</span><span class="p">,</span>
+                        <span class="n">symphonyPy</span><span class="o">.</span><span class="n">MAXWELL_JUETTNER</span><span class="p">,</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">STOKES_I</span><span class="p">,</span>
+                         <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s2">&quot;powerlaw&quot;</span><span class="p">:</span>
+        <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">nu_t</span><span class="p">:</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">j_nu_py</span><span class="p">(</span><span class="n">nu_t</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">incang</span><span class="p">,</span>
+                        <span class="n">symphonyPy</span><span class="o">.</span><span class="n">POWER_LAW</span><span class="p">,</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">STOKES_I</span><span class="p">,</span>
+                         <span class="mi">0</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s2">&quot;kappa&quot;</span><span class="p">:</span>
+        <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">nu_t</span><span class="p">:</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">j_nu_fit_py</span><span class="p">(</span><span class="n">nu_t</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">incang</span><span class="p">,</span>
+                        <span class="n">symphonyPy</span><span class="o">.</span><span class="n">KAPPA_DIST</span><span class="p">,</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">STOKES_I</span><span class="p">,</span>
+                         <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">symphony_njobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">fun</span><span class="p">)(</span><span class="n">nu_t</span><span class="p">)</span> <span class="k">for</span> <span class="n">nu_t</span> <span class="ow">in</span> <span class="n">nu</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">a_nu_sym</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">edist</span><span class="p">,</span> <span class="n">incang</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">edist</span> <span class="o">==</span> <span class="s2">&quot;thermal&quot;</span><span class="p">:</span>
+        <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">nu_t</span><span class="p">:</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">alpha_nu_py</span><span class="p">(</span><span class="n">nu_t</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">incang</span><span class="p">,</span>
+                        <span class="n">symphonyPy</span><span class="o">.</span><span class="n">MAXWELL_JUETTNER</span><span class="p">,</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">STOKES_I</span><span class="p">,</span>
+                         <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">SYMPHONY_METHOD</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s2">&quot;powerlaw&quot;</span><span class="p">:</span>
+        <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">nu_t</span><span class="p">:</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">alpha_nu_py</span><span class="p">(</span><span class="n">nu_t</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">incang</span><span class="p">,</span>
+                        <span class="n">symphonyPy</span><span class="o">.</span><span class="n">POWER_LAW</span><span class="p">,</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">STOKES_I</span><span class="p">,</span>
+                         <span class="mi">0</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">SYMPHONY_METHOD</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">edist</span> <span class="o">==</span> <span class="s2">&quot;kappa&quot;</span><span class="p">:</span>
+        <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">nu_t</span><span class="p">:</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">alpha_nu_fit_py</span><span class="p">(</span><span class="n">nu_t</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">incang</span><span class="p">,</span>
+                        <span class="n">symphonyPy</span><span class="o">.</span><span class="n">KAPPA_DIST</span><span class="p">,</span> <span class="n">symphonyPy</span><span class="o">.</span><span class="n">STOKES_I</span><span class="p">,</span>
+                         <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">symphony_njobs</span><span class="p">)(</span><span class="n">delayed</span><span class="p">(</span><span class="n">fun</span><span class="p">)(</span><span class="n">nu_t</span><span class="p">)</span> <span class="k">for</span> <span class="n">nu_t</span> <span class="ow">in</span> <span class="n">nu</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="section" id="thermal-distribution">
+<h2>Thermal Distribution<a class="headerlink" href="#thermal-distribution" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">g_min_br</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">g_max_br</span><span class="p">),</span> <span class="mi">350</span><span class="p">)</span>
+<span class="n">ne_fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">gamma</span> <span class="p">:</span> <span class="n">fm</span><span class="o">.</span><span class="n">eDist</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="p">[</span><span class="n">theta_E</span><span class="p">],</span> <span class="s2">&quot;thermal&quot;</span><span class="p">)</span>
+
+<span class="n">j_nu_th_sym</span> <span class="o">=</span> <span class="n">j_nu_sym</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">theta_E</span><span class="p">],</span> <span class="s2">&quot;thermal&quot;</span><span class="p">,</span> <span class="n">p_angle</span><span class="p">)</span>
+<span class="n">a_nu_th_sym</span> <span class="o">=</span> <span class="n">a_nu_sym</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">theta_E</span><span class="p">],</span> <span class="s2">&quot;thermal&quot;</span><span class="p">,</span> <span class="n">p_angle</span><span class="p">)</span>
+
+<span class="n">j_nu_th_br</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">j_nu_brute</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">theta_E</span><span class="p">],</span> <span class="s2">&quot;thermal&quot;</span><span class="p">,</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">,</span> \
+                           <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">,</span> <span class="n">gamma_min</span><span class="o">=</span><span class="n">g_min_br</span><span class="p">,</span> <span class="n">gamma_max</span><span class="o">=</span><span class="n">g_max_br</span><span class="p">)</span>
+<span class="n">j_nu_th_usr</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">j_nu_userdist</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">ne_fun</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">)</span>
+<span class="n">a_nu_th_br</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">a_nu_brute</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">theta_E</span><span class="p">],</span> <span class="s2">&quot;thermal&quot;</span><span class="p">,</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">,</span> \
+                           <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">,</span> <span class="n">gamma_min</span><span class="o">=</span><span class="n">g_min_br</span><span class="p">,</span> <span class="n">gamma_max</span><span class="o">=</span><span class="n">g_max_br</span><span class="p">)</span>
+<span class="n">a_nu_th_usr</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">a_nu_userdist</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">ne_fun</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_th_sym</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;symphony&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_th_br</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;brute&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_th_usr</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;y.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;userdist&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-20</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu j_{\nu}/n_e$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu/\nu_c$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_th_sym</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_th_br</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_th_usr</span><span class="p">,</span> <span class="s1">&#39;y.&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-50</span><span class="p">,</span> <span class="mf">1e-14</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">1e2</span><span class="p">,</span> <span class="mf">1e8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\alpha_{\nu}/n_e$&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">SAVE_PLOT</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;CompThermal.eps&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">j_nu_th_br</span><span class="o">/</span><span class="n">j_nu_th_sym</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a_nu_th_br</span><span class="o">/</span><span class="n">a_nu_th_sym</span><span class="p">),</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">j_nu_th_usr</span><span class="o">/</span><span class="n">j_nu_th_sym</span><span class="p">),</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a_nu_th_usr</span><span class="o">/</span><span class="n">a_nu_th_sym</span><span class="p">),</span> <span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;|1-abs(ratio)|&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu/\nu_c$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">1e2</span><span class="p">,</span> <span class="mf">1e8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">PostScript</span> <span class="n">backend</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="n">transparency</span><span class="p">;</span> <span class="n">partially</span> <span class="n">transparent</span> <span class="n">artists</span> <span class="n">will</span> <span class="n">be</span> <span class="n">rendered</span> <span class="n">opaque</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">PostScript</span> <span class="n">backend</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="n">transparency</span><span class="p">;</span> <span class="n">partially</span> <span class="n">transparent</span> <span class="n">artists</span> <span class="n">will</span> <span class="n">be</span> <span class="n">rendered</span> <span class="n">opaque</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/Comparison_5_2.png" src="../_images/Comparison_5_2.png" />
+<img alt="../_images/Comparison_5_3.png" src="../_images/Comparison_5_3.png" />
+</div>
+<div class="section" id="powerlaw-distribution">
+<h2>Powerlaw Distribution<a class="headerlink" href="#powerlaw-distribution" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">g_min_br</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">g_max_br</span><span class="p">),</span> <span class="mi">350</span><span class="p">)</span>
+<span class="n">ne_fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">gamma</span> <span class="p">:</span> <span class="n">fm</span><span class="o">.</span><span class="n">eDist</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">gamma_min</span><span class="p">,</span> <span class="n">gamma_max</span><span class="p">],</span> <span class="s2">&quot;powerlawexpcutoff&quot;</span><span class="p">)</span>
+
+<span class="n">j_nu_pl_sym</span> <span class="o">=</span> <span class="n">j_nu_sym</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">gamma_min</span><span class="p">,</span> <span class="n">gamma_max</span><span class="p">],</span> <span class="s2">&quot;powerlaw&quot;</span><span class="p">,</span> <span class="n">p_angle</span><span class="p">)</span>
+<span class="n">a_nu_pl_sym</span> <span class="o">=</span> <span class="n">a_nu_sym</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">gamma_min</span><span class="p">,</span> <span class="n">gamma_max</span><span class="p">],</span> <span class="s2">&quot;powerlaw&quot;</span><span class="p">,</span> <span class="n">p_angle</span><span class="p">)</span>
+
+<span class="n">j_nu_pl_br</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">j_nu_brute</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">gamma_min</span><span class="p">,</span> <span class="n">gamma_max</span><span class="p">],</span> <span class="s2">&quot;powerlawexpcutoff&quot;</span><span class="p">,</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="n">j_nu_pl_usr</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">j_nu_userdist</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">ne_fun</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">)</span>
+<span class="n">a_nu_pl_br</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">a_nu_brute</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">gamma_min</span><span class="p">,</span> <span class="n">gamma_max</span><span class="p">],</span> <span class="s2">&quot;powerlawexpcutoff&quot;</span><span class="p">,</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<span class="n">a_nu_pl_usr</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">a_nu_userdist</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">ne_fun</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_pl_sym</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;symphony&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_pl_br</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;brute&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_pl_usr</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;y.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;userdist&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-17</span><span class="p">,</span> <span class="mf">1e-14</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu j_{\nu}/n_e$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu/\nu_c$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_pl_sym</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_pl_br</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_pl_usr</span><span class="p">,</span> <span class="s1">&#39;y.&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-41</span><span class="p">,</span> <span class="mf">1e-13</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">1e2</span><span class="p">,</span> <span class="mf">1e8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\alpha_{\nu}/n_e$&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">SAVE_PLOT</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;CompPl.eps&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">j_nu_pl_br</span><span class="o">/</span><span class="n">j_nu_pl_sym</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a_nu_pl_br</span><span class="o">/</span><span class="n">a_nu_pl_sym</span><span class="p">),</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">j_nu_pl_usr</span><span class="o">/</span><span class="n">j_nu_pl_sym</span><span class="p">),</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a_nu_pl_usr</span><span class="o">/</span><span class="n">a_nu_pl_sym</span><span class="p">),</span> <span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;|1-abs(ratio)|&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu/\nu_c$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">1e2</span><span class="p">,</span> <span class="mf">1e8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">PostScript</span> <span class="n">backend</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="n">transparency</span><span class="p">;</span> <span class="n">partially</span> <span class="n">transparent</span> <span class="n">artists</span> <span class="n">will</span> <span class="n">be</span> <span class="n">rendered</span> <span class="n">opaque</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">PostScript</span> <span class="n">backend</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="n">transparency</span><span class="p">;</span> <span class="n">partially</span> <span class="n">transparent</span> <span class="n">artists</span> <span class="n">will</span> <span class="n">be</span> <span class="n">rendered</span> <span class="n">opaque</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/Comparison_8_2.png" src="../_images/Comparison_8_2.png" />
+<img alt="../_images/Comparison_8_3.png" src="../_images/Comparison_8_3.png" />
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">g_min_br</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">g_max_br</span><span class="p">),</span> <span class="mi">350</span><span class="p">)</span>
+<span class="n">ne_fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">gamma</span> <span class="p">:</span> <span class="n">fm</span><span class="o">.</span><span class="n">eDist</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="p">[</span><span class="n">kappa</span><span class="p">,</span> <span class="n">kappa_w</span><span class="p">],</span> <span class="s2">&quot;kappa&quot;</span><span class="p">)</span>
+
+<span class="n">j_nu_kp_sym</span> <span class="o">=</span> <span class="n">j_nu_sym</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">kappa</span><span class="p">,</span> <span class="n">kappa_w</span><span class="p">],</span> <span class="s2">&quot;kappa&quot;</span><span class="p">,</span> <span class="n">p_angle</span><span class="p">)</span>
+<span class="n">a_nu_kp_sym</span> <span class="o">=</span> <span class="n">a_nu_sym</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">kappa</span><span class="p">,</span> <span class="n">kappa_w</span><span class="p">],</span> <span class="s2">&quot;kappa&quot;</span><span class="p">,</span> <span class="n">p_angle</span><span class="p">)</span>
+
+<span class="n">j_nu_kp_br</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">j_nu_brute</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">kappa</span><span class="p">,</span> <span class="n">kappa_w</span><span class="p">],</span> <span class="s2">&quot;kappa&quot;</span><span class="p">,</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">,</span> \
+                           <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">,</span> <span class="n">gamma_min</span><span class="o">=</span><span class="n">g_min_br</span><span class="p">,</span> <span class="n">gamma_max</span><span class="o">=</span><span class="n">g_max_br</span><span class="p">)</span>
+<span class="n">j_nu_kp_usr</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">j_nu_userdist</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">ne_fun</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">)</span>
+<span class="n">a_nu_kp_br</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">a_nu_brute</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="p">[</span><span class="n">kappa</span><span class="p">,</span> <span class="n">kappa_w</span><span class="p">],</span> <span class="s2">&quot;kappa&quot;</span><span class="p">,</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">,</span> \
+                           <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">,</span> <span class="n">gamma_min</span><span class="o">=</span><span class="n">g_min_br</span><span class="p">,</span> <span class="n">gamma_max</span><span class="o">=</span><span class="n">g_max_br</span><span class="p">)</span>
+<span class="n">a_nu_kp_usr</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="n">a_nu_userdist</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">ne_fun</span><span class="p">(</span><span class="n">gamma</span><span class="p">),</span> <span class="n">incang</span><span class="o">=</span><span class="n">p_angle</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_kp_sym</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;k-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;symphony&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_kp_br</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;brute&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">j_nu_kp_usr</span><span class="o">*</span><span class="n">nu</span><span class="p">,</span> <span class="s1">&#39;y.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;userdist&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-14</span><span class="p">,</span> <span class="mf">1e-6</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu j_{\nu}/n_e$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu/\nu_c$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_kp_sym</span><span class="p">,</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_kp_br</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">a_nu_kp_usr</span><span class="p">,</span> <span class="s1">&#39;y.&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-41</span><span class="p">,</span> <span class="mf">1e-13</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">1e2</span><span class="p">,</span> <span class="mf">1e8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\alpha_{\nu}$&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">SAVE_PLOT</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;CompKappa.eps&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">j_nu_kp_br</span><span class="o">/</span><span class="n">j_nu_kp_sym</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a_nu_kp_br</span><span class="o">/</span><span class="n">a_nu_kp_sym</span><span class="p">),</span> <span class="s1">&#39;k-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">j_nu_kp_usr</span><span class="o">/</span><span class="n">j_nu_kp_sym</span><span class="p">),</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu_c</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a_nu_kp_usr</span><span class="o">/</span><span class="n">a_nu_kp_sym</span><span class="p">),</span> <span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;|1-abs(ratio)|&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\nu/\nu_c$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">1e2</span><span class="p">,</span> <span class="mf">1e8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">PostScript</span> <span class="n">backend</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="n">transparency</span><span class="p">;</span> <span class="n">partially</span> <span class="n">transparent</span> <span class="n">artists</span> <span class="n">will</span> <span class="n">be</span> <span class="n">rendered</span> <span class="n">opaque</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">PostScript</span> <span class="n">backend</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">support</span> <span class="n">transparency</span><span class="p">;</span> <span class="n">partially</span> <span class="n">transparent</span> <span class="n">artists</span> <span class="n">will</span> <span class="n">be</span> <span class="n">rendered</span> <span class="n">opaque</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/Comparison_10_2.png" src="../_images/Comparison_10_2.png" />
+<img alt="../_images/Comparison_10_3.png" src="../_images/Comparison_10_3.png" />
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Fitting.html" class="btn btn-neutral float-right" title="Modeling of SgrA* sub-mm bump" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SyncCool.html" class="btn btn-neutral float-left" title="Synchrotron Cooling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Yigit Dallilar, Sebastiano von Fellenberg
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
