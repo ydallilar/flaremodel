@@ -20,11 +20,9 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
-        conda init bash
-        conda create -n test numpy cython
+        conda create -n base numpy cython
     - name: Build flaremodel
       run: |
-        conda activate test
         python setup.py install
     - name: Lint with flake8
       run: |
