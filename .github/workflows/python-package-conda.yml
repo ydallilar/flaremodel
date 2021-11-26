@@ -23,7 +23,7 @@ jobs:
         conda install numpy cython
     - name: Build flaremodel
       run: |
-        python setup.py install
+        python setup.py build_ext --inplace
     - name: Lint with flake8
       run: |
         conda install flake8
