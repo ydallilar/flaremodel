@@ -1,0 +1,474 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Low Level Utilities &mdash; flaremodel 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Geometries" href="Geometries.html" />
+    <link rel="prev" title="Electron Distributions" href="EDist.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> flaremodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EDist.html">Electron Distributions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Low Level Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#synchrotron-utilities">Synchrotron Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inverse-compton-utilities">Inverse Compton Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#temporal-evolution">Temporal Evolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#radiative-transfer">Radiative Transfer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Geometries.html">Geometries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TempEvolution.html">Temporal Evolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fitting.html">Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LICENSE.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">flaremodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Low Level Utilities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="low-level-utilities">
+<h1>Low Level Utilities<a class="headerlink" href="#low-level-utilities" title="Permalink to this headline">¶</a></h1>
+<p>Here, we introduce low level utilities provided with the package to develop variety of models.
+The functions given here is a bit more picky than normal python functions.
+In some cases, we note that it is necessary to provide numpy arrays in C contiguous form.
+We will not discuss the details here, but in case of relevant errors, following can be used:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="synchrotron-utilities">
+<h2>Synchrotron Utilities<a class="headerlink" href="#synchrotron-utilities" title="Permalink to this headline">¶</a></h2>
+<p>We provide two methods to calculate synchrotron emissivity and absorption coefficent:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>brute</cite> (<a class="reference internal" href="#flaremodel.j_nu_brute" title="flaremodel.j_nu_brute"><code class="xref py py-func docutils literal notranslate"><span class="pre">j_nu_brute()</span></code></a>, <a class="reference internal" href="#flaremodel.a_nu_brute" title="flaremodel.a_nu_brute"><code class="xref py py-func docutils literal notranslate"><span class="pre">a_nu_brute()</span></code></a>): Numerical computation using built-in electron distributions</p></li>
+<li><p><cite>userdist</cite> (<a class="reference internal" href="#flaremodel.j_nu_userdist" title="flaremodel.j_nu_userdist"><code class="xref py py-func docutils literal notranslate"><span class="pre">j_nu_userdist()</span></code></a>, <a class="reference internal" href="#flaremodel.a_nu_userdist" title="flaremodel.a_nu_userdist"><code class="xref py py-func docutils literal notranslate"><span class="pre">a_nu_userdist()</span></code></a>) Numerical computation from an arbitrary numerical distribution on a grid. It is often better to provide a grid equidistant in logspace.</p></li>
+</ul>
+</div></blockquote>
+<dl class="py function">
+<dt class="sig sig-object py" id="flaremodel.j_nu_brute">
+<span class="sig-name descname"><span class="pre">j_nu_brute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">nu</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">ne</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">B</span></em>, <em class="sig-param"><span class="pre">list</span> <span class="pre">params</span></em>, <em class="sig-param"><span class="pre">unicode</span> <span class="pre">edist</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">incang=-1</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">steps=50</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">gamma_min=1.1</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">gamma_max=1e7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.j_nu_brute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerical calculation of synchrotron emissivity for a given (pre-defined) electron distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – C contiguous 1-D numpy array of frequencies to calculate the coefficient.</p></li>
+<li><p><strong>ne</strong> (<em>float</em>) – electron density [1/cm3]</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic fied [G]</p></li>
+<li><p><strong>params</strong> (<em>list</em>) – Set of parameters for the electron distribution</p></li>
+<li><p><strong>edist</strong> (<em>str</em>) – Name of the electron distribution</p></li>
+<li><p><strong>incang</strong> (<em>float</em><em>, </em><em>default=-1</em>) – Inclination angle, -1 for angle averaged [rad]</p></li>
+<li><p><strong>steps</strong> (<em>int</em><em>, </em><em>default=50</em>) – Steps per decade in gamma for integration</p></li>
+<li><p><strong>gamma_min</strong> (<em>float</em><em>, </em><em>default=1.1</em>) – Lower limit of gamma range used for integration. If the distribution has the parameters, the value is taken from distribution parameters</p></li>
+<li><p><strong>gamma_max</strong> (<em>float</em><em>, </em><em>default=1e7</em>) – Same as gamma_min but upper limit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>j_nu</strong> – Synchrotron emissivity, same size as nu [ergs cm-3 s-1 Hz-1 sr-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flaremodel.a_nu_brute">
+<span class="sig-name descname"><span class="pre">a_nu_brute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">nu</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">ne</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">B</span></em>, <em class="sig-param"><span class="pre">list</span> <span class="pre">params</span></em>, <em class="sig-param"><span class="pre">unicode</span> <span class="pre">edist</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">incang=-1</span></em>, <em class="sig-param"><span class="pre">int</span> <span class="pre">steps=50</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">gamma_min=1.1</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">gamma_max=1e7</span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.a_nu_brute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerical calculation of synchrotron absorption coefficient for a given (pre-defined) electron distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – C contiguous 1-D numpy array of frequencies to calculate the coefficient.</p></li>
+<li><p><strong>ne</strong> (<em>float</em>) – electron density [1/cm3]</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic fied [G]</p></li>
+<li><p><strong>params</strong> (<em>list</em>) – Set of parameters for the electron distribution</p></li>
+<li><p><strong>edist</strong> (<em>str</em>) – Name of the electron distribution</p></li>
+<li><p><strong>incang</strong> (<em>float</em><em>, </em><em>default=-1</em>) – Inclination angle, -1 for angle averaged [rad]</p></li>
+<li><p><strong>steps</strong> (<em>int</em><em>, </em><em>default=50</em>) – Steps per decade in gamma for integration</p></li>
+<li><p><strong>gamma_min</strong> (<em>float</em><em>, </em><em>default=1.1</em>) – Lower limit of gamma range used for integration. If the distribution has the parameters, the value is taken from distribution parameters</p></li>
+<li><p><strong>gamma_max</strong> (<em>float</em><em>, </em><em>default=1e7</em>) – Same as gamma_min but upper limit</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>a_nu</strong> – Synchrotron absorption coefficient, same size as nu [cm-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flaremodel.j_nu_userdist">
+<span class="sig-name descname"><span class="pre">j_nu_userdist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">nu</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">B</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">gamma</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">e_dist</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">incang=-1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.j_nu_userdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerical calculation of synchrotron emissivity for a given numerical electron distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – C contiguous 1-D numpy array of frequencies to calculate the coefficient.</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic fied [G]</p></li>
+<li><p><strong>gamma</strong> (<em>np.ndarray</em>) – C contiguous grid points in gamma for corresponding e_dist</p></li>
+<li><p><strong>e_dist</strong> (<em>np.ndarray</em>) – C contiguous grid points for dN/dgamma [cm-3]</p></li>
+<li><p><strong>incang</strong> (<em>float</em><em>, </em><em>default=-1</em>) – Inclination angle, -1 for angle averaged [rad]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>j_nu</strong> – Synchrotron emissivity, same size as nu [ergs cm-3 s-1 Hz-1 sr-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flaremodel.a_nu_userdist">
+<span class="sig-name descname"><span class="pre">a_nu_userdist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">nu</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">B</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">gamma</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">e_dist</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">incang=-1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.a_nu_userdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerical calculation of synchrotron absorption coefficient for a given numerical electron distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – C contiguous 1-D numpy array of frequencies to calculate the coefficient.</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic fied [G]</p></li>
+<li><p><strong>gamma</strong> (<em>np.ndarray</em>) – C contiguous grid points in gamma for corresponding e_dist</p></li>
+<li><p><strong>e_dist</strong> (<em>np.ndarray</em>) – C contiguous grid points for dN/dgamma [cm-3]</p></li>
+<li><p><strong>incang</strong> (<em>float</em><em>, </em><em>default=-1</em>) – Inclination angle, -1 for angle averaged [rad]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>a_nu</strong> – Synchrotron absorption coefficient, same size as nu [cm-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="inverse-compton-utilities">
+<h2>Inverse Compton Utilities<a class="headerlink" href="#inverse-compton-utilities" title="Permalink to this headline">¶</a></h2>
+<p>Inverse Compton calculations are the most computationally expensive routines by far in this package. Hence, we provide two alternatives;
+one written in C and parallelized with OpenMP, alternative version targets GPUs with PyOpenCL implementation. Depending on hardware or on a specific problem,
+one may be more optimal than the other. While the GPU version will thrive on high end hardware, it is hardware agnostic and can be ran on integrated GPUs as well.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="flaremodel.compton_emissivity">
+<span class="sig-name descname"><span class="pre">compton_emissivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">epsilon</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">gamma</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">nu</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">n_ph</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">e_dist</span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.compton_emissivity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Integrates KN cross-section for scattering of n_ph(epsilon) seed photons from
+electron distribution e_dist(gamma) with frequency nu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epsilon</strong> (<em>np.ndarray</em>) – Input incident photon energies, note h*nu [ergs]</p></li>
+<li><p><strong>gamma</strong> (<em>np.ndarray</em>) – Gamma of electron distribution</p></li>
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – Requested scattered photon frequencies [Hz]</p></li>
+<li><p><strong>n_ph</strong> (<em>np.ndarray</em>) – Photon densities at corresponding epsilons [cm-3]</p></li>
+<li><p><strong>e_dist</strong> (<em>np.ndarray</em>) – Electron densities at corresponding gammas [cm-3]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>res</strong> – Compton emissivity [erg cm-3 Hz-1 sr-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaremodel.gComptonEmissivity">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">gComptonEmissivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.gComptonEmissivity" title="Permalink to this definition">¶</a></dt>
+<dd><p>PyOpenCL implementation of <a class="reference internal" href="#flaremodel.compton_emissivity" title="flaremodel.compton_emissivity"><code class="xref py py-func docutils literal notranslate"><span class="pre">compton_emissivity()</span></code></a>. Note that this is a class not a function. It needs to be executed as:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gComptonIntegral</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)(</span><span class="n">n_ph</span><span class="p">,</span> <span class="n">e_dist</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The reason is to bypass the overhead of compiling OpenCL code and setting up the calculation grid. So, it can be used for repetitive calculations,</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">g_compton_emissivity</span> <span class="o">=</span> <span class="n">gComptonEmissivity</span><span class="p">(</span><span class="n">nu</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">res_i</span> <span class="o">=</span> <span class="n">g_compton_emissivity</span><span class="p">(</span><span class="n">n_ph_i</span><span class="p">,</span> <span class="n">e_dist_i</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – Requested scattered photon frequencies [Hz]</p></li>
+<li><p><strong>epsilon</strong> (<em>np.ndarray</em>) – Input incident photon energies, note h*nu</p></li>
+<li><p><strong>gamma</strong> (<em>np.ndarray</em>) – Gamma of electron distribution</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.gComptonEmissivity.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_ph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e_dist</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.gComptonEmissivity.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_ph</strong> (<em>np.ndarray</em>) – Photon densities at corresponding epsilons</p></li>
+<li><p><strong>e_dist</strong> (<em>np.ndarray</em>) – Electron densities at corresponding gammas</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>res</strong> – Compton emissivity [erg s-1 cm-3 sr-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="temporal-evolution">
+<h2>Temporal Evolution<a class="headerlink" href="#temporal-evolution" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="flaremodel.cool_onestep">
+<span class="sig-name descname"><span class="pre">cool_onestep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">e_dist</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">gamma</span></em>, <em class="sig-param"><span class="pre">double[::1]</span> <span class="pre">e_dist_inj</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">B</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">R</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">dt</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">exp_b</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">t_esc</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">inj_r</span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.cool_onestep" title="Permalink to this definition">¶</a></dt>
+<dd><p>One step generic temporal evolution function for a “blob”. Adiabatic and synchrotron cooling
+are included. It is also possible to inject electrons and define an escpace time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function doesn’t include any sanity check for given <code class="docutils literal notranslate"><span class="pre">dt</span></code>. If it is too fast
+for given set of parameters, the function will return garbage results without a warning.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>e_dist</strong> (<em>np.ndarray</em>) – 1-D electron distribution to evaluated for the next step (Note: changed in place!)</p></li>
+<li><p><strong>gamma</strong> (<em>np.ndarray</em>) – 1-D gamma array same size of e_dist</p></li>
+<li><p><strong>e_dist_inj</strong> (<em>np.ndarray</em>) – Normalized 1-D injected electron distribution same size of e_dist</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic field [G]</p></li>
+<li><p><strong>R</strong> (<em>float</em>) – Radius of the blob [cm]</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time resolution [s], ie. the function returns the state after dt.</p></li>
+<li><p><strong>exp_b</strong> (<em>float</em>) – Expansion speed of the blob [c](speed of light)</p></li>
+<li><p><strong>t_esc</strong> (<em>float</em>) – Escape timescale [s]</p></li>
+<li><p><strong>inj_r</strong> (<em>float</em>) – Injection rate [e-/s], e_dist_inj multiplied by this.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>B</strong> (<em>float</em>) – Updated B after time dt (if exp_b &gt; 0)</p></li>
+<li><p><strong>R</strong> (<em>float</em>) – Updated R after time dt (if exp_b &gt; 0)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="radiative-transfer">
+<h2>Radiative Transfer<a class="headerlink" href="#radiative-transfer" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="flaremodel.ray_tracing">
+<span class="sig-name descname"><span class="pre">ray_tracing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">double[:</span></em>, <em class="sig-param"><span class="pre">:</span></em>, <em class="sig-param"><span class="pre">::1]</span> <span class="pre">j_nu</span></em>, <em class="sig-param"><span class="pre">double[:</span></em>, <em class="sig-param"><span class="pre">:</span></em>, <em class="sig-param"><span class="pre">::1]</span> <span class="pre">a_nu</span></em>, <em class="sig-param"><span class="pre">double</span> <span class="pre">dx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.ray_tracing" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a pythonic radiative transfer computation function in the sense that
+it operates pre-constructed j_nu and a_nu grid.
+The function expects 3-D arrays.
+Ray tracing is performed along the last axis.
+First two axis are reserved for nu and iteration of traces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>j_nu</strong> (<em>np.ndarray</em>) – 3-D grid of emissivities [erg s-1 cm-3 sr-1 Hz-1]</p></li>
+<li><p><strong>a_nu</strong> (<em>np.ndarray</em>) – 3-D grid of absorption coefficienties [cm-1]</p></li>
+<li><p><strong>dx</strong> (<em>float</em>) – Distance between each grid point along the traces</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>I_nu</strong> – 3-D array of I_nu [erg s-1 cm-2 sr-1 Hz-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Geometries.html" class="btn btn-neutral float-right" title="Geometries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="EDist.html" class="btn btn-neutral float-left" title="Electron Distributions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Yigit Dallilar, Sebastiano von Fellenberg
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

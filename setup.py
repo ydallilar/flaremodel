@@ -61,6 +61,31 @@ cfuncs_module = Extension(ext_modules["name"],
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
+cmdclass = {}
+try:
+    from sphinx.setup_command import BuildDoc
+    import shutil, os
+    class BuildDocGHPages(BuildDoc):
+        def run(self):
+            super().run()
+
+            for attr in self.user_options:
+                if attr[0] == "build-dir=":
+                    build_dir = attr[1]
+                    break
+
+            print(build_dir)
+            build_dir = "build/sphinx/" if build_dir is None else build_dir
+            if os.path.isdir("./docs/"): shutil.rmtree("./docs/")
+            shutil.move("%s/html/" % build_dir, "./docs")
+            open("./docs/.nojekyll", "w").close()
+
+    cmdclass["build_sphinx_ghpages"] = BuildDocGHPages
+except:
+    pass
+    
+SPHINX_DEFAULTS = {'source_dir' : ('setup.py', 'sphinx')}
+
 setup(
     name='flaremodel',
     version='1.0.0',
@@ -74,7 +99,8 @@ setup(
     description="A simple one zone code that can do many different flavours of flares",
     install_requires=["numpy", "scipy", "matplotlib", "lmfit>=1"],
     command_options={
-        'build_sphinx' : {'source_dir' : ('setup.py', 'sphinx'),
-                        'build_dir' : ('setup.py', './')}}   
+        'build_sphinx' : SPHINX_DEFAULTS,
+        'build_sphinx_ghpages' : SPHINX_DEFAULTS},
+    cmdclass=cmdclass
 ) 
   

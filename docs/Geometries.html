@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Geometries &mdash; flaremodel 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Temporal Evolution" href="TempEvolution.html" />
+    <link rel="prev" title="Low Level Utilities" href="Utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> flaremodel
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="GettingStarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EDist.html">Electron Distributions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utils.html">Low Level Utilities</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Geometries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TempEvolution.html">Temporal Evolution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Fitting.html">Fitting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LICENSE.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">flaremodel</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Geometries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Geometries.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="geometries">
+<h1>Geometries<a class="headerlink" href="#geometries" title="Permalink to this headline">¶</a></h1>
+<p>Base class to implement new geometries is <a class="reference internal" href="#flaremodel.Geometry" title="flaremodel.Geometry"><code class="xref py py-class docutils literal notranslate"><span class="pre">Geometry</span></code></a>. Methods to be implemented are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#flaremodel.Geometry._compute_synchrotron" title="flaremodel.Geometry._compute_synchrotron"><code class="xref py py-func docutils literal notranslate"><span class="pre">Geometry._compute_synchrotron()</span></code></a></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">Geometry._compute_compute_IC()</span></code></p></li>
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">Geometry._compute_compute_SSC()</span></code></p></li>
+<li><p><a class="reference internal" href="#flaremodel.Geometry._compute_photon_density" title="flaremodel.Geometry._compute_photon_density"><code class="xref py py-func docutils literal notranslate"><span class="pre">Geometry._compute_photon_density()</span></code></a>, only for SSC calculations</p></li>
+</ul>
+</div></blockquote>
+<p>It is not necessary to implement all functions, just the ones desired. The equivalent ones without underscore in front are reserved for user interface.
+This is for including additional functionality such as Doppler boosting. (see <a class="reference internal" href="#flaremodel.DopplerBooster" title="flaremodel.DopplerBooster"><code class="xref py py-class docutils literal notranslate"><span class="pre">DopplerBooster</span></code></a>).</p>
+<p>There are two geometries prodived with the code:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#flaremodel.HomogeneousSphere" title="flaremodel.HomogeneousSphere"><code class="xref py py-class docutils literal notranslate"><span class="pre">HomogeneousSphere</span></code></a>, a basic homogeneous sphere</p></li>
+<li><p><a class="reference internal" href="#flaremodel.RadialSphere" title="flaremodel.RadialSphere"><code class="xref py py-class docutils literal notranslate"><span class="pre">RadialSphere</span></code></a>, spherical geometry in which it is possible to specify radial profile in electron density and magnetic field.</p></li>
+</ul>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="flaremodel.Geometry">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'thermal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'brute'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">booster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.Geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base Geometry class to extend for other geometries</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edist</strong> (<em>str</em>) – Name of the electron distribution for the geometry. Refer to docs.</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – Reserved for later use.</p></li>
+<li><p><strong>booster</strong> (<em>class</em>) – A boosting implementation, ie. <a class="reference internal" href="#flaremodel.DopplerBooster" title="flaremodel.DopplerBooster"><code class="xref py py-class docutils literal notranslate"><span class="pre">DopplerBooster</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.Geometry._compute_IC">
+<span class="sig-name descname"><span class="pre">_compute_IC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ph_fun</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.Geometry._compute_IC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Definition of SSC luminosity for the geometry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – 1-D frequencies to calculate synchrotron luminosity [Hz]</p></li>
+<li><p><strong>ne</strong> (<em>float</em>) – Electron density [cm^-3]</p></li>
+<li><p><strong>n_ph_fun</strong> (<em>function</em>) – Function to calculate photon densities nph(nu) [cm-3 Hz-1]</p></li>
+<li><p><strong>g_params</strong> (<em>list</em>) – Parameters for the implemented geometry</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic Field [G]</p></li>
+<li><p><strong>params</strong> (<em>list</em>) – List of parameters for the electron distribution</p></li>
+<li><p><strong>**kwargs</strong> – Reserved for additional parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>L_nu</strong> – [erg s-1 Hz-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.Geometry._compute_SSC">
+<span class="sig-name descname"><span class="pre">_compute_SSC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.Geometry._compute_SSC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Definition of SSC luminosity for the geometry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – 1-D frequencies to calculate synchrotron luminosity [Hz]</p></li>
+<li><p><strong>ne</strong> (<em>float</em>) – Electron density [cm^-3]</p></li>
+<li><p><strong>g_params</strong> (<em>list</em>) – Parameters for the implemented geometry</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic Field [G]</p></li>
+<li><p><strong>params</strong> (<em>list</em>) – List of parameters for the electron distribution</p></li>
+<li><p><strong>**kwargs</strong> – Reserved for additional parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>L_nu</strong> – [erg s-1 Hz-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.Geometry._compute_photon_density">
+<span class="sig-name descname"><span class="pre">_compute_photon_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.Geometry._compute_photon_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Definition of photon density due to internal synchrotron.
+Note that this can return anything for any specific SSC calculation and
+typically not to be used for other purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – 1-D frequencies to calculate synchrotron luminosity [Hz]</p></li>
+<li><p><strong>ne</strong> (<em>float</em>) – Electron density [cm^-3]</p></li>
+<li><p><strong>g_params</strong> (<em>list</em>) – Parameters for the implemented geometry</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic Field [G]</p></li>
+<li><p><strong>params</strong> (<em>list</em>) – List of parameters for the electron distribution</p></li>
+<li><p><strong>**kwargs</strong> – Reserved for additional parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.Geometry._compute_synchrotron">
+<span class="sig-name descname"><span class="pre">_compute_synchrotron</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.Geometry._compute_synchrotron" title="Permalink to this definition">¶</a></dt>
+<dd><p>Definition of synchrotron luminosity for the geometry</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – 1-D frequencies to calculate synchrotron luminosity [Hz]</p></li>
+<li><p><strong>ne</strong> (<em>float</em>) – Electron density [cm^-3]</p></li>
+<li><p><strong>g_params</strong> (<em>list</em>) – Parameters for the implemented geometry</p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic Field [G]</p></li>
+<li><p><strong>params</strong> (<em>list</em>) – List of parameters for the electron distribution</p></li>
+<li><p><strong>**kwargs</strong> – Reserved for additional parameters</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>L_nu</strong> – [erg s-1 Hz-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.Geometry.compute_IC">
+<span class="sig-name descname"><span class="pre">compute_IC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_ph_fun</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boost_p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.Geometry.compute_IC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <a class="reference internal" href="#flaremodel.Geometry._compute_IC" title="flaremodel.Geometry._compute_IC"><code class="xref py py-func docutils literal notranslate"><span class="pre">Geometry._compute_IC()</span></code></a> but accepts <code class="docutils literal notranslate"><span class="pre">boost_p</span></code> keyword. See class <a class="reference internal" href="#flaremodel.DopplerBooster" title="flaremodel.DopplerBooster"><code class="xref py py-class docutils literal notranslate"><span class="pre">DopplerBooster</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.Geometry.compute_SSC">
+<span class="sig-name descname"><span class="pre">compute_SSC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boost_p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.Geometry.compute_SSC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <a class="reference internal" href="#flaremodel.Geometry._compute_SSC" title="flaremodel.Geometry._compute_SSC"><code class="xref py py-func docutils literal notranslate"><span class="pre">Geometry._compute_SSC()</span></code></a> but accepts <code class="docutils literal notranslate"><span class="pre">boost_p</span></code> keyword. See class <a class="reference internal" href="#flaremodel.DopplerBooster" title="flaremodel.DopplerBooster"><code class="xref py py-class docutils literal notranslate"><span class="pre">DopplerBooster</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.Geometry.compute_synchrotron">
+<span class="sig-name descname"><span class="pre">compute_synchrotron</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boost_p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.Geometry.compute_synchrotron" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as <a class="reference internal" href="#flaremodel.Geometry._compute_synchrotron" title="flaremodel.Geometry._compute_synchrotron"><code class="xref py py-func docutils literal notranslate"><span class="pre">Geometry._compute_synchrotron()</span></code></a> but accepts <code class="docutils literal notranslate"><span class="pre">boost_p</span></code> keyword. See class <a class="reference internal" href="#flaremodel.DopplerBooster" title="flaremodel.DopplerBooster"><code class="xref py py-class docutils literal notranslate"><span class="pre">DopplerBooster</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaremodel.HomogeneousSphere">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">HomogeneousSphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'thermal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'brute'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">booster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.HomogeneousSphere" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exact homogeneous sphere.</p>
+<dl class="simple">
+<dt>g_params for this class are:</dt><dd><ul class="simple">
+<li><p>R, size of the sphere [cm]</p></li>
+<li><p>incang, Magnetic field configuration. -1 for tangled or uniform field lines at an angle to observer [rad]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>edist</strong> (<em>str</em>) – Name of the electron distribution for the geometry. Refer to docs.</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – Reserved for later use.</p></li>
+<li><p><strong>booster</strong> (<em>class</em>) – A boosting implementation, ie. <a class="reference internal" href="#flaremodel.DopplerBooster" title="flaremodel.DopplerBooster"><code class="xref py py-class docutils literal notranslate"><span class="pre">DopplerBooster</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaremodel.RadialSphere">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">RadialSphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n_r_fun=&lt;function</span> <span class="pre">RadialSphere.&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">B_r_fun=&lt;function</span> <span class="pre">RadialSphere.&lt;lambda&gt;&gt;</span></em>, <em class="sig-param"><span class="pre">edist='thermal'</span></em>, <em class="sig-param"><span class="pre">method='brute'</span></em>, <em class="sig-param"><span class="pre">bh=False</span></em>, <em class="sig-param"><span class="pre">rsteps=64</span></em>, <em class="sig-param"><span class="pre">target='cpu'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.RadialSphere" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numerical computation of spherical model where it is possible to set radial profiles in electron density or magnetic field.</p>
+<dl class="simple">
+<dt>g_params for this class are:</dt><dd><ul class="simple">
+<li><p>R, size of the sphere [cm]</p></li>
+<li><p>R_in, inner radius of the sphere. 0 if not necessary.</p></li>
+<li><p>incang, Magnetic field configuration. -1 for tangled or uniform field lines at an angle to observer [rad]</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_r_fun</strong> (<em>function</em>) – Radial profile of n_e</p></li>
+<li><p><strong>B_r_fun</strong> (<em>function</em>) – Radial profile of magnetic field</p></li>
+<li><p><strong>edist</strong> (<em>str</em>) – Electron distribution tag</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – Reserved for later</p></li>
+<li><p><strong>bh</strong> (<em>boolean</em><em>, </em><em>default=False</em>) – Max absorption below R_in</p></li>
+<li><p><strong>rsteps</strong> (<em>int</em>) – Specify number of radial grid points</p></li>
+<li><p><strong>target</strong> (<em>str</em><em>, </em><em>default=&quot;cpu&quot;</em>) – How to perform inverse Compton scattering, either “cpu” or “gpu”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaremodel.HomogeneousSphereUserdist">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">HomogeneousSphereUserdist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">booster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.HomogeneousSphereUserdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Special geometry class with different interface to work with given user electron distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>booster</strong> (<em>class</em>) – A boosting implementation, ie. <a class="reference internal" href="#flaremodel.DopplerBooster" title="flaremodel.DopplerBooster"><code class="xref py py-class docutils literal notranslate"><span class="pre">DopplerBooster</span></code></a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="flaremodel.HomogeneousSphereUserdist._compute_synchrotron">
+<span class="sig-name descname"><span class="pre">_compute_synchrotron</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ne</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.HomogeneousSphereUserdist._compute_synchrotron" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes synchrotron luminosity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nu</strong> (<em>np.ndarray</em>) – Frequency array [Hz]</p></li>
+<li><p><strong>Ne</strong> (<em>np.ndarray</em>) – Electron distribution on gamma grid. Note this is not density total electrons</p></li>
+<li><p><strong>g_params</strong> (<em>list</em>) – Geometry parameters. same as <a class="reference internal" href="#flaremodel.HomogeneousSphere" title="flaremodel.HomogeneousSphere"><code class="xref py py-class docutils literal notranslate"><span class="pre">HomogeneousSphere</span></code></a></p></li>
+<li><p><strong>B</strong> (<em>float</em>) – Magnetic field [G]</p></li>
+<li><p><strong>gamma</strong> (<em>np.ndarray</em>) – gamma corresponding to Ne</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>L_nu</strong> – [erg s-1 Hz-1]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="flaremodel.DopplerBooster">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">DopplerBooster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flaremodel.DopplerBooster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Doppler boost decorator for a given luminosity function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beta</strong> (<em>float</em>) – v/c</p></li>
+<li><p><strong>phi</strong> (<em>float</em>) – Angle wrt line of sight in radian. Approaching towards observer 0, moving away from observer np.pi</p></li>
+<li><p><strong>n</strong> (<em>float</em>) – Geometry dependent boosting parameter. Spherical source with bulk velocity 3, jet-like 2 etc.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="TempEvolution.html" class="btn btn-neutral float-right" title="Temporal Evolution" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Utils.html" class="btn btn-neutral float-left" title="Low Level Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Yigit Dallilar, Sebastiano von Fellenberg
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
