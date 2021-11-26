@@ -20,7 +20,7 @@ jobs:
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
-        conda install numpy cython
+        conda install numpy cython matplotlib scipy
     - name: Build flaremodel
       run: |
         python setup.py build_ext --inplace
