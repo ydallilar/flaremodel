@@ -15,6 +15,6 @@ Our [documentation](https://ydallilar.github.io/flaremodel/) covers the installa
 The documentation mostly covers the usage of the code. The detailed methodology/physics are covered in our [paper (to be added*)](Oops). 
 The examples introduced in the paper are provided as jupyter notebooks in `notebooks/` directory of the tarball and can also serve as a test of the compiled code.
 
-Please cite the paper when the code is used in academical studies.
+Please cite the paper when the code is used in academical studies. Note that the paper refers to [our first stable release](https://github.com/ydallilar/flaremodel/releases/tag/v1.0.0). 
 
 
