@@ -88,14 +88,14 @@ SPHINX_DEFAULTS = {'source_dir' : ('setup.py', 'sphinx')}
 
 setup(
     name='flaremodel',
-    version='1.0.0',
+    version='1.0.1',
     author='Yigit Dallilar, Sebastiano von Fellenberg',
     author_email='ydallilar@mpe.mpg.de, sefe@mpe.mpg.de',
     packages = find_packages(),
     long_description=long_description,
     long_description_content_type="text/markdown",
     ext_modules = cythonize([cfuncs_module], emit_linenums=True),
-    url="https://url/",
+    url="https://github.com/ydallilar/flaremodel/",
     description="A simple one zone code that can do many different flavours of flares",
     install_requires=["numpy", "scipy", "matplotlib", "lmfit>=1"],
     command_options={

@@ -5,6 +5,8 @@ Electron Distributions
 
 .. autofunction:: eDist
 
+.. _EDIST_HOWTO:
+
 How to add new electron distributions
 -------------------------------------
 

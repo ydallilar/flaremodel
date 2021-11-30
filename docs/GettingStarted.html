@@ -167,10 +167,21 @@
 <p>Flaremodel: A simple one zone code that can do many different flavours of flares!</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip -v install flaremodel-0.2.1.tar.gz
+<p>The source code of <cite>flaremodel</cite> can be obtained from our github <a class="reference external" href="https://github.com/ydallilar/flaremodel">repository</a>.
+Then, the package can be installed manually.
+This is useful if one, for example, may want to add new <a class="reference internal" href="EDist.html#edist-howto"><span class="std std-ref">electron distributions</span></a>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ydallilar/flaremodel
+# or to obtain a specific tag
+# https://github.com/ydallilar/flaremodel@vX.Y.Z
+cd flaremodel
+python setup.py install
 </pre></div>
 </div>
-<p>Send full log to <a class="reference external" href="mailto:ydallilar&#37;&#52;&#48;mpe&#46;mpg&#46;de">ydallilar<span>&#64;</span>mpe<span>&#46;</span>mpg<span>&#46;</span>de</a> in case of compile errors. Probably, it won’t compile on Windows for the moment.</p>
+<p>Alternatively, the code can be directly installed from <a class="reference external" href="https://pypi.org/">PyPI</a>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install flaremodel
+</pre></div>
+</div>
+<p>Open an issue on the github <a class="reference external" href="https://github.com/ydallilar/flaremodel">repository</a> in case of errors. Probably, it won’t compile on Windows for the moment.</p>
 </section>
 <section id="c-extensions">
 <h2>C extensions<a class="headerlink" href="#c-extensions" title="Permalink to this headline">¶</a></h2>

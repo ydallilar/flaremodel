@@ -6,11 +6,28 @@ Flaremodel: A simple one zone code that can do many different flavours of flares
 Installation
 ------------
 
+The source code of `flaremodel` can be obtained from our github `repository`_.
+Then, the package can be installed manually. 
+This is useful if one, for example, may want to add new :ref:`electron distributions<EDIST_HOWTO>`.
+
 .. code-block:: none
 
-    pip -v install flaremodel-0.2.1.tar.gz
+    git clone https://github.com/ydallilar/flaremodel
+    # or to obtain a specific tag
+    # https://github.com/ydallilar/flaremodel@vX.Y.Z
+    cd flaremodel
+    python setup.py install
 
-Send full log to ydallilar@mpe.mpg.de in case of compile errors. Probably, it won't compile on Windows for the moment.
+Alternatively, the code can be directly installed from `PyPI`_.
+
+.. code-block:: none
+
+    pip install flaremodel
+
+Open an issue on the github `repository`_ in case of errors. Probably, it won't compile on Windows for the moment.
+
+.. _repository: https://github.com/ydallilar/flaremodel
+.. _PyPI: https://pypi.org/
 
 C extensions
 ------------
