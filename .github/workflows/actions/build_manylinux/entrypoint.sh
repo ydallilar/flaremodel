@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo $1
-#yum -y install gsl-devel
+yum -y install gsl-devel
 
 PYVER=${1#.}
 
