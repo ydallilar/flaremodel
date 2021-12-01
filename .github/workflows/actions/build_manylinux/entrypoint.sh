@@ -26,8 +26,7 @@ echo ${PYTHON_VERSION}
 /opt/python/${PYTHON_VERSION}/bin/pip install -U cython numpy
 /opt/python/${PYTHON_VERSION}/bin/python setup.py bdist_wheel -d wheelhouse
 
-auditwheel repair /github/workspace/wheelhouse/*.whl
-rm /github/workspace/wheelhouse/*.whl
-
-
+$WHEEL=/github/workspace/wheelhouse/*.whl
+auditwheel repair $WHEEL
+rm $WHEEL
 
