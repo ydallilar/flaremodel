@@ -12,7 +12,7 @@ In simple words, users can implement efficient high level `multithreading` on py
 
 Our [documentation](https://ydallilar.github.io/flaremodel/) covers the installation, module references and examples.
 
-The documentation mostly covers the usage of the code. The detailed methodology/physics are covered in our [paper (to be added*)](Oops). 
+The documentation mostly covers the usage of the code. The detailed methodology/physics are covered in our [paper](https://arxiv.org/abs/2111.15273). 
 The examples introduced in the paper are provided as jupyter notebooks in `notebooks/` directory of the tarball and can also serve as a test of the compiled code.
 
 Please cite the paper when the code is used in academical studies. Note that the paper refers to [our first stable release](https://github.com/ydallilar/flaremodel/releases/tag/v1.0.0). 
