@@ -1,9 +1,9 @@
 #!/bin/sh
 
 echo $1
-yum -y install gsl-devel
+#yum -y install gsl-devel
 
-PYVER=${$1#.}
+PYVER=${1#.}
 
 case $PYVER in
 
