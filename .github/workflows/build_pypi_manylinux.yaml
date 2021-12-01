@@ -1,0 +1,22 @@
+name: Build manylinux wheels, upload to PyPI upon release
+
+on: push
+
+jobs:
+  build:
+    name: Build manylinux wheels, upload to PyPI upon release
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            pyver: [3.7]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build manylinux wheel
+        uses: ./.github/workflows/actions/build_manylinux@v1
+        with:
+            pyver: ${{ matrix.pyver }}
+      - uses: actions/upload-artifact@v2-preview
+        with:
+          name: flaremodel-wheel-manylinux
+          path: wheelhouse/*manylinux*.whl
+

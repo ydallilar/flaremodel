@@ -1,0 +1,10 @@
+name: 'build wheels with manylinux2014_x86_64'
+description: 'build wheels with manylinux2014_x86_64'
+inputs:
+    pyver:
+        required: true
+runs:
+    using: 'docker'
+    image: docker://quay.io/pypa/manylinux2014_x86_64
+    args:
+        - ${{ inputs.pyver }}
