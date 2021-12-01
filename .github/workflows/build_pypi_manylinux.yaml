@@ -19,8 +19,18 @@ jobs:
         with:
           name: flaremodel-wheel-manylinux
           path: wheelhouse/*manylinux*.whl
-      - name: Publish wheels to test.pypi
+    
+  upload:
+    name: Upload wheels to test.pypi
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+      - name: Check
+        run : ls -l flaremodel-wheel-manylinux
         #if: github.event_name == 'release' && github.event.action == 'created'
+      - name: Publish wheels to test.pypi
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
