@@ -4,7 +4,7 @@ yum -y install gsl-devel
 
 PYVER=${1#.}
 
-case PYVER in
+case $PYVER in
 
 	35 | 36 | 37)
 		PYTHON_VERSION=cp${PYVER}-cp${PYVER}m
