@@ -5,6 +5,6 @@ inputs:
         required: true
 runs:
     using: 'docker'
-    image: docker://quay.io/pypa/manylinux2014_x86_64
+    image: 'Dockerfile'
     args:
         - ${{ inputs.pyver }}
