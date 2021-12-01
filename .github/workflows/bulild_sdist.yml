@@ -1,0 +1,21 @@
+name: Build flaremodel sdist
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sdist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install Cython and numpy
+        run : pip install cython numpy
+      - name: Install GSL
+        run : sudo apt-get install libgsl0-dev
+      - name: Build sdist
+        run : python setup.py sdist
+        #TODO: upload
