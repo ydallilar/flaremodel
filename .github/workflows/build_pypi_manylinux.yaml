@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build manylinux wheel
-        uses: ./.github/workflows/actions/build_manylinux@v1
+        uses: ./.github/workflows/actions/build_manylinux
         with:
             pyver: ${{ matrix.pyver }}
       - uses: actions/upload-artifact@v2-preview
