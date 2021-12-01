@@ -3,7 +3,8 @@
 echo $1
 yum -y install gsl-devel
 
-PYVER=${1#.}
+PYVER=${1/./}
+echo ${PYVER}
 
 case $PYVER in
 
@@ -17,6 +18,8 @@ case $PYVER in
 		echo OOPS
 		;;
 esac
+
+echo ${PYTHON_VERSION}
 
 /opt/python/${PYTHON_VERSION}/bin/pip install --upgrade pip
 /opt/python/${PYTHON_VERSION}/bin/pip install -U wheel auditwheel
