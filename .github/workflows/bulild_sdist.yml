@@ -17,8 +17,7 @@ jobs:
         run : sudo apt-get install libgsl0-dev
       - name: Build sdist
         run : python setup.py sdist
-        #TODO: upload
-      - name: Publish package to TestPyPI
+      - name: Publish package to test.pypi
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
