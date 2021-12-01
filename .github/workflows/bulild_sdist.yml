@@ -1,7 +1,6 @@
 name: Build flaremodel sdist
 
-on:
-  workflow_dispatch:
+on: push
 
 jobs:
   sdist:
