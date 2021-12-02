@@ -1,0 +1,84 @@
+name: Build wheels, upload to PyPI upon release
+
+on: push
+
+jobs:
+  build_manylinux:
+    name: Build manylinux wheels
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            pyver: [3.7, 3.8, 3.9, "3.10"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build manylinux wheel
+        uses: ./.github/workflows/actions/build_manylinux
+        with:
+            pyver: ${{ matrix.pyver }}
+      - uses: actions/upload-artifact@v2-preview
+        with:
+          name: flaremodel-wheel-manylinux-latest
+          path: wheelhouse/*
+   
+  build_osx_windows:
+    name: Build wheels for macos and windows
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest,windows-latest]
+        pyver: [3.7, 3.8, 3.9, "3.10"]
+    defaults:
+      - shell: bash -l {0}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+           activate-environment: flaremodel
+           environment-file: .github/conda_env/conda-build-environment-${{ matrix.os }}.yml
+           python-version: ${{ matrix.pyver }}
+      - name: Install pip dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel
+      - name: Set environment variables on Mac OS
+        if: matrix.os == 'macos-latest'
+        run: |
+          echo "CFLAGS=-I$CONDA_PREFIX/include" >> $GITHUB_ENV
+          echo "LDFLAGS=-L$CONDA_PREFIX/lib" >> $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=-L$CONDA_PREFIX/lib" >> $GITHUB_ENV
+      - name: Set environment variables on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          echo "INCLUDE=$CONDA_PREFIX\\Library\\include" >> $GITHUB_ENV
+          echo "LIB=$CONDA_PREFIX\\Library\\lib" >> $GITHUB_ENV
+          echo "LIBPATH=$CONDA_PREFIX\\Library\\lib" >> $GITHUB_ENV
+      - name: Build extension
+        run: |
+          mkdir wheelhouse
+          python setup.py build_ext
+      - name: Build wheel
+        run: python setup.py bdist_wheel -d wheelhouse
+      - uses: actions/upload-artifact@v2-preview
+        with:
+          name: flaremodel-wheel-${{ matrix.os }}
+          path: wheelhouse/*.whl
+
+  upload:
+    name: Upload wheels to test.pypi
+    needs: build, build_osx_windows
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [manylinux, macos, windows]
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        #if: github.event_name == 'release' && github.event.action == 'created'
+      - name: Publish wheels to test.pypi
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TEST_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+          packages_dir: flaremodel-wheel-${{ matrix.platform }}-latest
+

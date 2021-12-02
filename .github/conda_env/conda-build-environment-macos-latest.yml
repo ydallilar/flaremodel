@@ -1,0 +1,12 @@
+name: flaremodel
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+  - scipy
+  - matplotlib
+  - setuptools
+  - cython
+  - conda-forge::gsl
+  - conda-forge::compilers
+  - conda-forge::llvm-openmp
