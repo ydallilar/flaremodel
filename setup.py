@@ -105,7 +105,7 @@ SPHINX_DEFAULTS = {'source_dir' : ('setup.py', 'sphinx')}
 
 setup(
     name='flaremodel',
-    version='1.0.2',
+    version='1.0.3',
     author='Yigit Dallilar, Sebastiano von Fellenberg',
     author_email='ydallilar@mpe.mpg.de, sefe@mpe.mpg.de',
     packages = find_packages(),
