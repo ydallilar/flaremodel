@@ -27,6 +27,7 @@ def add_gsl_header_path(include_dirs):
             return include_dirs
         except:
             warnings.warn("Can't locate GSL headers. Using system defaults.")
+            return include_dirs
 
 
 # Temporary OpenMP switch
