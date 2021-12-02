@@ -3,12 +3,12 @@ name: Build wheels, upload to PyPI upon release
 on:
   push:
     branches:    
-      - master
+      - main
     paths-ignore:
       - 'doc/**'
   pull_request:
     branches:
-      - master
+      - main
     paths-ignore:
       - 'doc/**'
   release:
@@ -88,8 +88,8 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v2
-        if: github.event_name == 'release' && github.event.action == 'created'
       - name: Publish wheels to test.pypi
+        if: github.event_name == 'release' && github.event.action == 'created'
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
