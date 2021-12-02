@@ -28,7 +28,8 @@ jobs:
         os: [macos-latest,windows-latest]
         pyver: [3.7, 3.8, 3.9, "3.10"]
     defaults:
-      - shell: bash -l {0}
+      run:
+        shell: bash -l {0}
     steps:
       - uses: actions/checkout@v2
       - uses: conda-incubator/setup-miniconda@v2
