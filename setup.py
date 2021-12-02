@@ -20,7 +20,8 @@ def add_gsl_header_path(include_dirs):
     import subprocess as subp
 
     try:
-        proc = subp.run(["gsl-config", "--prefix"], check=True, capture_output=True)
+        if not WIN32:
+            proc = subp.check_output(["gsl-config", "--prefix"], shell=False)
     except:
         raise Exception("Can't locate GSL headers...")
 
