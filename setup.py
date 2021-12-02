@@ -42,12 +42,12 @@ def add_openmp_options(extra_link_args, extra_compile_args):
 
     # Need to find relevant settings for different OSes.
     if openmp_switch:
-        if WIN32:
-            extra_link_args.append("/openmp")
-            extra_compile_args.append("/openmp")
-        else:
+        if not WIN32:
             extra_link_args.append("-fopenmp")
             extra_compile_args.append("-fopenmp")
+        else:
+            extra_link_args.append("/openmp")
+            extra_compile_args.append("/openmp")
 
 
     return extra_link_args, extra_compile_args
