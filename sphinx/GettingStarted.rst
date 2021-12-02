@@ -13,12 +13,16 @@ This is useful if one, for example, may want to add new :ref:`electron distribut
 .. code-block:: none
 
     git clone https://github.com/ydallilar/flaremodel
-    # or to obtain a specific tag
-    # https://github.com/ydallilar/flaremodel@vX.Y.Z
     cd flaremodel
     python setup.py install
 
-Alternatively, the code can be directly installed from `PyPI`_.
+Alternatively, the package can be directly installed from `PyPI`_.
+Linux wheel are built with manylinux2014 image and self-contained. 
+Windows and OSX wheels are also provided but they are not tested.
+The runtime time dependencies are `GSL <https://www.gnu.org/software/gsl/>`_ and intel-openmp/llvm-openmp (Windows/OSX). 
+These are available from `conda-forge <https://conda-forge.org/>`_.
+
+Due to :ref:`Numpy issue`, the wheels are currently not available for Python 3.10.
 
 .. code-block:: none
 
@@ -48,7 +52,7 @@ If OpenMP is not available, the compile will fail.
 
     # To disable as a workaround for the moment.
     export FLAREMODEL_OPENMP=0
-    pip -v install flaremodel-0.2.1.tar.gz
+    python setup.py install
 
 Note that OpenMP will use optimal number of threads. Typically mean all the threads available.
 There are three different ways to limit:
@@ -64,6 +68,11 @@ There are three different ways to limit:
     # During runtime
     from threadpoolctl import threadpool_limits
     threadpool_limits(limits=n)
+
+.. _Numpy issue:
+
+Numpy>=1.20
+^^^^^^^^^^^
 
 There is a change in the Numpy C-API at version 1.20 and not compatible with previous versions of numpy. Hence, the following error may occur.
 For the moment, we restrict numpy version to <1.20.0.

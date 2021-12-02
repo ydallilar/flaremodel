@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 from distutils.extension import Extension
-import glob
+import glob, platform
 
 try:
     from Cython.Build import cythonize
@@ -12,18 +12,23 @@ try:
 except:
     raise Exception("Numpy must be installed...")
 
+WIN32= platform.system() == 'Windows'
+
 # Temporary detection of GSL headers
 def add_gsl_header_path(include_dirs):
 
     import subprocess as subp
+    import warnings
 
-    try:
-        proc = subp.run(["gsl-config", "--prefix"], check=True, capture_output=True)
-    except:
-        raise Exception("Can't locate GSL headers...")
-
-    include_dirs.append("%s/include/" % proc.stdout.decode("utf-8").strip("\n"))
+    if not WIN32:
+        try:
+            proc = subp.check_output(["gsl-config", "--prefix"], shell=False)
+            include_dirs.append("%s/include/" % proc.decode("utf-8").strip("\n"))
+        except:
+            warnings.warn("Can't locate GSL headers. Using system defaults.")
+    
     return include_dirs
+
 
 # Temporary OpenMP switch
 def add_openmp_options(extra_link_args, extra_compile_args):
@@ -37,19 +42,31 @@ def add_openmp_options(extra_link_args, extra_compile_args):
 
     # Need to find relevant settings for different OSes.
     if openmp_switch:
-        extra_link_args.append("-fopenmp")
-        extra_compile_args.append("-fopenmp")
+        if not WIN32:
+            extra_link_args.append("-fopenmp")
+            extra_compile_args.append("-fopenmp")
+        else:
+            extra_link_args.append("/openmp")
+            extra_compile_args.append("/openmp")
+
 
     return extra_link_args, extra_compile_args
 
-include_dirs=[np.get_include(), "cfuncs/"]
+include_dirs=[np.get_include(), "cfuncs"]
 libraries=["gsl", "gslcblas"]
-extra_compile_args=["-DHAVE_INLINE", "-march=native", "-std=c99"]
+# Remove for the moement
+#extra_compile_args=["-DHAVE_INLINE", "-march=native", "-std=c99"]
+extra_compile_args=[]
 extra_link_args=[]
 ext_modules = {"name" : "flaremodel.utils.cfuncs", "sources" : ["flaremodel/utils/cfuncs.pyx", *glob.glob("cfuncs/*.c")]}
 
 include_dirs = add_gsl_header_path(include_dirs)
 extra_link_args, extra_compile_args = add_openmp_options(extra_link_args, extra_compile_args)
+
+# Try a quick fix from galpy, honestly have no clue
+if WIN32:
+    extra_compile_args.append("-DGSL_DLL")
+    extra_compile_args.append("-DWIN32")
 
 cfuncs_module = Extension(ext_modules["name"], 
                         ext_modules["sources"], 

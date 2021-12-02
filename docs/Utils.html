@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Low Level Utilities &mdash; flaremodel 0.2.0 documentation</title>
@@ -163,7 +162,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="low-level-utilities">
+  <div class="section" id="low-level-utilities">
 <h1>Low Level Utilities<a class="headerlink" href="#low-level-utilities" title="Permalink to this headline">¶</a></h1>
 <p>Here, we introduce low level utilities provided with the package to develop variety of models.
 The functions given here is a bit more picky than normal python functions.
@@ -172,7 +171,7 @@ We will not discuss the details here, but in case of relevant errors, following 
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
 </pre></div>
 </div>
-<section id="synchrotron-utilities">
+<div class="section" id="synchrotron-utilities">
 <h2>Synchrotron Utilities<a class="headerlink" href="#synchrotron-utilities" title="Permalink to this headline">¶</a></h2>
 <p>We provide two methods to calculate synchrotron emissivity and absorption coefficent:</p>
 <blockquote>
@@ -281,8 +280,8 @@ We will not discuss the details here, but in case of relevant errors, following 
 </dl>
 </dd></dl>
 
-</section>
-<section id="inverse-compton-utilities">
+</div>
+<div class="section" id="inverse-compton-utilities">
 <h2>Inverse Compton Utilities<a class="headerlink" href="#inverse-compton-utilities" title="Permalink to this headline">¶</a></h2>
 <p>Inverse Compton calculations are the most computationally expensive routines by far in this package. Hence, we provide two alternatives;
 one written in C and parallelized with OpenMP, alternative version targets GPUs with PyOpenCL implementation. Depending on hardware or on a specific problem,
@@ -354,8 +353,8 @@ electron distribution e_dist(gamma) with frequency nu.</p>
 
 </dd></dl>
 
-</section>
-<section id="temporal-evolution">
+</div>
+<div class="section" id="temporal-evolution">
 <h2>Temporal Evolution<a class="headerlink" href="#temporal-evolution" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="flaremodel.cool_onestep">
@@ -391,8 +390,8 @@ for given set of parameters, the function will return garbage results without a 
 </dl>
 </dd></dl>
 
-</section>
-<section id="radiative-transfer">
+</div>
+<div class="section" id="radiative-transfer">
 <h2>Radiative Transfer<a class="headerlink" href="#radiative-transfer" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="flaremodel.ray_tracing">
@@ -419,8 +418,8 @@ First two axis are reserved for nu and iteration of traces.</p>
 </dl>
 </dd></dl>
 
-</section>
-</section>
+</div>
+</div>
 
 
            </div>

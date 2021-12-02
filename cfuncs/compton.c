@@ -32,9 +32,10 @@ double compton_emissivity_s(double *epsilon, double *gamma,
     double sum;
     double last, next;
     double res;
+	int i;
 
     #pragma omp parallel for private(last,next,sum)
-    for (int i=0; i<gamma_sz; i++){
+    for (i=0; i<gamma_sz; i++){
         sum = 0;
         last = n_ph[0]*e_dist[i]*KN(epsilon[0], gamma[i], nu);        
         for (int j=0; j<eps_sz-1; j++){
@@ -57,7 +58,9 @@ void compton_emissivity(double *res, double *epsilon, double *gamma,
                         double *nu, double *n_ph, double *e_dist,
                         int eps_sz, int gamma_sz, int nu_sz){
 
-    for(int i=0; i<nu_sz; i++)
+	int i;
+
+    for(i=0; i<nu_sz; i++)
         res[i] = compton_emissivity_s(epsilon, gamma, nu[i], 
                                     n_ph, e_dist, eps_sz, gamma_sz);
 

@@ -49,8 +49,9 @@ int synchF(double *res, int sz, double *x)
     gsl_interp_accel *acc = gsl_interp_accel_alloc ();
     gsl_spline *spline = gsl_spline_alloc (gsl_interp_cspline, 50);
     gsl_spline_init(spline, &sF_x[0], &sF_val[0], 50);
+	int i;
 
-    for (int i=0; i<sz; i++)
+    for (i=0; i<sz; i++)
         res[i] = synchF_s(x[i], acc, spline);
 
     gsl_spline_free (spline);
@@ -94,8 +95,9 @@ double b_synchF_s(double x, gsl_integration_workspace* w_integ){
 int b_synchF(double *res, int sz, double *x){
 
     gsl_integration_workspace* w_integ = gsl_integration_workspace_alloc(1000);
+	int i;
 
-    for (int i=0; i<sz; i++)
+    for (i=0; i<sz; i++)
         res[i] = x[i]*b_synchF_s(x[i], w_integ);
     
     gsl_integration_workspace_free(w_integ);
@@ -131,14 +133,15 @@ int j_nu_brute(double *res, int sz, double *nu, Source* source_t){
     double* j_nu_int;
     double* nu_over_nu_crit;
     double* sFs;
+	int i,j;
 
-    for (int j=0; j<len_gamma; j++){
+    for (j=0; j<len_gamma; j++){
         gamma[j] = pow(10, j*dgam + log10(source_t->gamma_min));
     }
 
     eDist(e_dist, len_gamma, gamma, source_t);
 
-    #pragma omp parallel private(nu_over_nu_crit, sFs, j_nu_int)
+    #pragma omp parallel private(nu_over_nu_crit, sFs, j_nu_int, j)
     {
     
     j_nu_int = (double*) malloc(len_gamma*sizeof(double));
@@ -146,12 +149,12 @@ int j_nu_brute(double *res, int sz, double *nu, Source* source_t){
     nu_over_nu_crit = (double*) malloc(len_gamma*sizeof(double));
 
     #pragma omp for
-    for (int i=0; i<sz; i++){
-        for (int j=0; j<len_gamma; j++){
+    for (i=0; i<sz; i++){
+        for (j=0; j<len_gamma; j++){
             nu_over_nu_crit[j] = nu[i]/((3/2.)*get_nu_B(B)*POW2(gamma[j])*sin_theta);
         }
         synchF(sFs, len_gamma, nu_over_nu_crit);
-        for(int j=0; j< len_gamma; j++){
+        for(j=0; j< len_gamma; j++){
             j_nu_int[j] = P_dist_factor*P_el_factor*sFs[j]*e_dist[j];
         }
         res[i] = trapz(gamma, j_nu_int, len_gamma);
@@ -186,15 +189,16 @@ int a_nu_brute(double *res, int sz, double *nu, Source* source_t){
     double* a_nu_int;
     double* nu_over_nu_crit;
     double* sFs;
+	int i,j;
 
-    for (int j=0; j<len_gamma; j++){
+    for (j=0; j<len_gamma; j++){
         gamma[j] = pow(10, j*dgam + log10(source_t->gamma_min));
     }
 
     eDist(e_dist, len_gamma, gamma, source_t);
     deDistdgam(de_distdgam, len_gamma, gamma, source_t);
 
-    #pragma omp parallel private(nu_over_nu_crit, sFs, a_nu_int)
+    #pragma omp parallel private(nu_over_nu_crit, sFs, a_nu_int, j)
     {
     
     a_nu_int = (double*) malloc(len_gamma*sizeof(double));
@@ -202,12 +206,12 @@ int a_nu_brute(double *res, int sz, double *nu, Source* source_t){
     nu_over_nu_crit = (double*) malloc(len_gamma*sizeof(double));
 
     #pragma omp for
-    for (int i=0; i<sz; i++){
-        for (int j=0; j<len_gamma; j++){
+    for (i=0; i<sz; i++){
+        for (j=0; j<len_gamma; j++){
             nu_over_nu_crit[j] = nu[i]/((3/2.)*get_nu_B(B)*POW2(gamma[j])*sin_theta);
         }
         synchF(sFs, len_gamma, nu_over_nu_crit);
-        for(int j=0; j< len_gamma; j++){
+        for(j=0; j< len_gamma; j++){
             a_nu_int[j] =  (a_dist_factor/POW2(nu[i]))*(P_el_factor*sFs[j])*(de_distdgam[j]-2*e_dist[j]/gamma[j]);
         }
         res[i] = trapz(gamma, a_nu_int, len_gamma);
@@ -238,8 +242,9 @@ int j_nu_userdist(double *res, int sz, double *nu, int len_gamma, double *gamma,
     double* j_nu_int;
     double* nu_over_nu_crit;
     double* sFs;
+	int i,j;
 
-    #pragma omp parallel private(j_nu_int, nu_over_nu_crit, sFs)
+    #pragma omp parallel private(j_nu_int, nu_over_nu_crit, sFs, j)
     {
     
     j_nu_int = (double*) malloc(len_gamma*sizeof(double));
@@ -247,12 +252,12 @@ int j_nu_userdist(double *res, int sz, double *nu, int len_gamma, double *gamma,
     nu_over_nu_crit = (double*) malloc(len_gamma*sizeof(double));
 
     #pragma omp for
-    for (int i=0; i<sz; i++){
-        for (int j=0; j<len_gamma; j++){
+    for (i=0; i<sz; i++){
+        for (j=0; j<len_gamma; j++){
             nu_over_nu_crit[j] = nu[i]/((3/2.)*get_nu_B(B)*POW2(gamma[j])*sin_theta);
         }
         synchF(sFs, len_gamma, nu_over_nu_crit);
-        for(int j=0; j< len_gamma; j++){
+        for(j=0; j< len_gamma; j++){
             j_nu_int[j] = P_dist_factor*P_el_factor*sFs[j]*e_dist[j];
         }
         res[i] = trapz(gamma, j_nu_int, len_gamma);
@@ -279,10 +284,11 @@ int a_nu_userdist(double *res, int sz, double *nu, int len_gamma, double *gamma,
     double* a_nu_int;
     double* nu_over_nu_crit;
     double* sFs;
+	int i,j;
 
     vec_deriv_num(de_distdgam, gamma, e_dist, len_gamma);
 
-    #pragma omp parallel private(nu_over_nu_crit, sFs, a_nu_int)
+    #pragma omp parallel private(nu_over_nu_crit, sFs, a_nu_int, j)
     {
     
     a_nu_int = (double*) malloc(len_gamma*sizeof(double));
@@ -290,12 +296,12 @@ int a_nu_userdist(double *res, int sz, double *nu, int len_gamma, double *gamma,
     nu_over_nu_crit = (double*) malloc(len_gamma*sizeof(double));
 
     #pragma omp for
-    for (int i=0; i<sz; i++){
-        for (int j=0; j<len_gamma; j++){
+    for (i=0; i<sz; i++){
+        for (j=0; j<len_gamma; j++){
             nu_over_nu_crit[j] = nu[i]/((3/2.)*get_nu_B(B)*POW2(gamma[j])*sin_theta);
         }
         synchF(sFs, len_gamma, nu_over_nu_crit);
-        for(int j=0; j< len_gamma; j++){
+        for(j=0; j< len_gamma; j++){
             a_nu_int[j] =  (a_dist_factor/POW2(nu[i]))*(P_el_factor*sFs[j])*(de_distdgam[j]-2*e_dist[j]/gamma[j]);
         }
         res[i] = trapz(gamma, a_nu_int, len_gamma);

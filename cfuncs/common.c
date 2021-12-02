@@ -12,8 +12,9 @@ const double h       = GSL_CONST_CGSM_PLANCKS_CONSTANT_H;
 double trapz(double *x, double* y, int sz){
 
     double sum=0;
+	int i;
 
-    for (int i=0; i<sz-1; i++){
+    for (i=0; i<sz-1; i++){
         sum = sum + (x[i+1]-x[i])*(y[i+1]+y[i])*0.5;
     }
 
@@ -40,8 +41,9 @@ int vec_deriv_num(double* res, double* x, double* y, int sz){
 
     res[0] = (y[1]-y[0])/(x[1]-x[0]);
     res[sz-1] = (y[sz-1]-y[sz-2])/(x[sz-1]-x[sz-2]);
+    
+	int i;
 
-    int i;
     for (i=1; i<sz-1; i++)
         res[i] = (y[i+1]-y[i])/(x[i+1]-x[i])*0.5+(y[i]-y[i-1])/(x[i]-x[i-1])*0.5;
 
