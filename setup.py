@@ -51,7 +51,7 @@ def add_openmp_options(extra_link_args, extra_compile_args):
 
     return extra_link_args, extra_compile_args
 
-include_dirs=[np.get_include(), "cfuncs/"]
+include_dirs=[np.get_include(), "cfuncs"]
 libraries=["gsl", "gslcblas"]
 # Remove for the moement
 #extra_compile_args=["-DHAVE_INLINE", "-march=native", "-std=c99"]
