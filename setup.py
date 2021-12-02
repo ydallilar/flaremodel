@@ -18,15 +18,16 @@ WIN32= platform.system() == 'Windows'
 def add_gsl_header_path(include_dirs):
 
     import subprocess as subp
+    import warnings
 
-    try:
-        if not WIN32:
+    if not WIN32:
+        try:
             proc = subp.check_output(["gsl-config", "--prefix"], shell=False)
-    except:
-        raise Exception("Can't locate GSL headers...")
+            include_dirs.append("%s/include/" % proc.decode("utf-8").strip("\n"))
+            return include_dirs
+        except:
+            warnings.warn("Can't locate GSL headers. Using system defaults.")
 
-    include_dirs.append("%s/include/" % proc.stdout.decode("utf-8").strip("\n"))
-    return include_dirs
 
 # Temporary OpenMP switch
 def add_openmp_options(extra_link_args, extra_compile_args):
