@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 from distutils.extension import Extension
-import glob
+import glob, platform
 
 try:
     from Cython.Build import cythonize
