@@ -11,8 +11,9 @@ int vec_sync_dgamdt(double *res, int sz, double *gamma, Source* source_t){
     double B = source_t->B;
     double u_B = B*B/(8*M_PI); // 1/(4*M_PI) if B is not isotropic
     double factor = 4./3.*sigma_T/M_e/c*u_B; // 2/3. angle averaged sin^2 used.
+	int i;
 
-    for (int i=0; i<sz; i++)
+    for (i=0; i<sz; i++)
         res[i] = -gamma[i]*gamma[i]*factor;
 
     return 0;
@@ -23,8 +24,9 @@ int vec_sync_dgamdt(double *res, int sz, double *gamma, Source* source_t){
 int vec_adiab_dgamdt(double *res, int sz, double *gamma, double exp_b, Source* source_t){
 
     double R = source_t->R;
+	int i;
 
-    for (int i=0; i<sz; i++)
+    for (i=0; i<sz; i++)
         res[i] = -gamma[i]*exp_b*c/R;
 
     return 0;
@@ -35,6 +37,7 @@ int cool_onestep(double *e_dist, int sz, double* gamma, double* e_dist_inj,
                 double dt, double exp_b, double t_esc, double inj_r, Source* source_t){
 
     double cool_r, esc_r;
+	int i;
 
     double* sync_dgamdt = (double*) malloc(sz*sizeof(double));
     double* adiab_dgamdt = (double*) malloc(sz*sizeof(double));
@@ -42,7 +45,7 @@ int cool_onestep(double *e_dist, int sz, double* gamma, double* e_dist_inj,
     vec_sync_dgamdt(sync_dgamdt, sz, gamma, source_t);
     vec_adiab_dgamdt(adiab_dgamdt, sz, gamma, exp_b, source_t);
 
-    for (int i=0; i<sz; i++){
+    for (i=0; i<sz; i++){
 
         if (i == sz-1) {
             e_dist[i] = 0; // The code leads to instability propagating from the last bin if not set to 0.

@@ -114,9 +114,10 @@ double deDistdgam_s(double gamma, Source* source_t){
 int deDistdgam(double *res, int sz, double *gamma, Source* source_t){
 
     double norm = source_t->n_func((void*) source_t->params);
+	int i=0;
 
     #pragma omp parallel for
-    for (int i=0; i<sz; i++){
+    for (i=0; i<sz; i++){
         res[i] = source_t->ne*deDistdgam_s(gamma[i], source_t)/norm;
     }
     return 0;
@@ -126,9 +127,10 @@ int deDistdgam(double *res, int sz, double *gamma, Source* source_t){
 int eDist(double *res, int sz, double *gamma, Source* source_t){
 
     double norm = source_t->n_func((void*) source_t->params);
+	int i=0;
 
     #pragma omp parallel for
-    for (int i=0; i<sz; i++){
+    for (i=0; i<sz; i++){
         res[i] = source_t->ne*eDist_s(gamma[i], source_t)/norm;
     }
     return 0;
