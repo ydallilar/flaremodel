@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Geometry Interface &mdash; flaremodel 0.2.0 documentation</title>
@@ -170,7 +169,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="geometry-interface">
+  <div class="section" id="geometry-interface">
 <h1>Geometry Interface<a class="headerlink" href="#geometry-interface" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">flaremodel</span> <span class="k">as</span> <span class="nn">fm</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -231,12 +230,9 @@ Essentially, SSC on <a class="reference internal" href="../Geometries.html#flare
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e41</span><span class="p">,</span> <span class="mf">4e43</span><span class="p">]);</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">1e+41</span><span class="p">,</span> <span class="mf">4e+43</span><span class="p">)</span>
-</pre></div>
+<img alt="../_images/Geometries_11_0.png" src="../_images/Geometries_11_0.png" />
 </div>
-<img alt="../_images/Geometries_11_1.png" src="../_images/Geometries_11_1.png" />
-</section>
-<section id="doppler-boosting">
+<div class="section" id="doppler-boosting">
 <h1>Doppler Boosting<a class="headerlink" href="#doppler-boosting" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boost_p1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1"># Not physical but for testing purposes</span>
 <span class="n">sync_h_b1</span> <span class="o">=</span> <span class="n">homo_sp</span><span class="o">.</span><span class="n">compute_synchrotron</span><span class="p">(</span><span class="n">nus</span><span class="p">,</span> <span class="n">ne</span><span class="p">,</span> <span class="p">[</span><span class="n">R</span><span class="p">,</span> <span class="n">incang</span><span class="p">],</span> <span class="n">B</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">boost_p1</span><span class="p">)</span>
@@ -252,11 +248,8 @@ Essentially, SSC on <a class="reference internal" href="../Geometries.html#flare
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e41</span><span class="p">,</span> <span class="mf">4e43</span><span class="p">]);</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">1e+41</span><span class="p">,</span> <span class="mf">4e+43</span><span class="p">)</span>
-</pre></div>
+<img alt="../_images/Geometries_13_0.png" src="../_images/Geometries_13_0.png" />
 </div>
-<img alt="../_images/Geometries_13_1.png" src="../_images/Geometries_13_1.png" />
-</section>
 
 
            </div>

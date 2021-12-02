@@ -1,6 +1,18 @@
 name: Build wheels, upload to PyPI upon release
 
-on: push
+on:
+  push:
+    branches:    
+      - master
+    paths-ignore:
+      - 'doc/**'
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - 'doc/**'
+  release:
+    types: [created]
 
 jobs:
   build_manylinux:
@@ -76,12 +88,11 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v2
-        #if: github.event_name == 'release' && github.event.action == 'created'
+        if: github.event_name == 'release' && github.event.action == 'created'
       - name: Publish wheels to test.pypi
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__
-          password: ${{ secrets.PYPI_TEST_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          password: ${{ secrets.PYPI_TOKEN }}
           packages_dir: flaremodel-wheel-${{ matrix.platform }}-latest
 

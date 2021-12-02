@@ -65,9 +65,9 @@ Photon Densities on Homogeneous Sphere
 
 .. parsed-literal::
 
-    <ipython-input-1-47252dca0fda>:6: RuntimeWarning: divide by zero encountered in true_divide
+    /tmp/ipykernel_8357/538814947.py:6: RuntimeWarning: divide by zero encountered in true_divide
       fun = lambda x: 2./3*((1-x**2)/(2*x)*np.log((1+x)/(1-x))+1)
-    <ipython-input-1-47252dca0fda>:6: RuntimeWarning: invalid value encountered in multiply
+    /tmp/ipykernel_8357/538814947.py:6: RuntimeWarning: invalid value encountered in multiply
       fun = lambda x: 2./3*((1-x**2)/(2*x)*np.log((1+x)/(1-x))+1)
 
 

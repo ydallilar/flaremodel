@@ -5,8 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Getting Started &mdash; flaremodel 0.2.0 documentation</title>
@@ -87,7 +86,10 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#c-extensions">C extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-extensions">C extensions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#numpy-1-20">Numpy&gt;=1.20</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#gpu-acceleration">GPU Acceleration</a></li>
 </ul>
 </li>
@@ -162,28 +164,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="getting-started">
+  <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <p>Flaremodel: A simple one zone code that can do many different flavours of flares!</p>
-<section id="installation">
+<div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>The source code of <cite>flaremodel</cite> can be obtained from our github <a class="reference external" href="https://github.com/ydallilar/flaremodel">repository</a>.
 Then, the package can be installed manually.
 This is useful if one, for example, may want to add new <a class="reference internal" href="EDist.html#edist-howto"><span class="std std-ref">electron distributions</span></a>.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ydallilar/flaremodel
-# or to obtain a specific tag
-# https://github.com/ydallilar/flaremodel@vX.Y.Z
 cd flaremodel
 python setup.py install
 </pre></div>
 </div>
-<p>Alternatively, the code can be directly installed from <a class="reference external" href="https://pypi.org/">PyPI</a>.</p>
+<p>Alternatively, the package can be directly installed from <a class="reference external" href="https://pypi.org/">PyPI</a>.
+Linux wheel are built with manylinux2014 image and self-contained.
+Windows and OSX wheels are also provided but they are not tested.
+The runtime time dependencies are <a class="reference external" href="https://www.gnu.org/software/gsl/">GSL</a> and intel-openmp/llvm-openmp (Windows/OSX).
+These are available from <a class="reference external" href="https://conda-forge.org/">conda-forge</a>.</p>
+<p>Due to <a class="reference internal" href="#numpy-issue"><span class="std std-ref">Numpy&gt;=1.20</span></a>, the wheels are currently not available for Python 3.10.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install flaremodel
 </pre></div>
 </div>
 <p>Open an issue on the github <a class="reference external" href="https://github.com/ydallilar/flaremodel">repository</a> in case of errors. Probably, it won’t compile on Windows for the moment.</p>
-</section>
-<section id="c-extensions">
+</div>
+<div class="section" id="c-extensions">
 <h2>C extensions<a class="headerlink" href="#c-extensions" title="Permalink to this headline">¶</a></h2>
 <p>C extensions are the core of this package and provides fast utility functions.
 A C compiler and GSL headers are necessary to compile the code.
@@ -196,7 +201,7 @@ conda install -c conda-forge gsl intel-openmp
 <p>If OpenMP is not available, the compile will fail.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span># To disable as a workaround for the moment.
 export FLAREMODEL_OPENMP=0
-pip -v install flaremodel-0.2.1.tar.gz
+python setup.py install
 </pre></div>
 </div>
 <p>Note that OpenMP will use optimal number of threads. Typically mean all the threads available.
@@ -212,13 +217,16 @@ from threadpoolctl import threadpool_limits
 threadpool_limits(limits=n)
 </pre></div>
 </div>
+<div class="section" id="numpy-1-20">
+<span id="numpy-issue"></span><h3>Numpy&gt;=1.20<a class="headerlink" href="#numpy-1-20" title="Permalink to this headline">¶</a></h3>
 <p>There is a change in the Numpy C-API at version 1.20 and not compatible with previous versions of numpy. Hence, the following error may occur.
 For the moment, we restrict numpy version to &lt;1.20.0.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ValueError: numpy.ndarray size changed, may indicate binary incompatibility. Expected 88 from C header, got 80 from PyObject
 </pre></div>
 </div>
-</section>
-<section id="gpu-acceleration">
+</div>
+</div>
+<div class="section" id="gpu-acceleration">
 <h2>GPU Acceleration<a class="headerlink" href="#gpu-acceleration" title="Permalink to this headline">¶</a></h2>
 <p>GPU acceleration is aviable with OpenCL implemenation and only for inverse Compton scattering calculations.
 It is optional relevant functions won’t load if there is no proper setup avialable.</p>
@@ -245,8 +253,8 @@ conda install -c conda-forge intel-compute-runtime
 </div>
 <p>At this point, hardware should be ready to use. Depending on the system, there may be more than one option.
 To select the correct hardware, <code class="docutils literal notranslate"><span class="pre">PYOPENCL_CTX</span></code> environment variable needs to point to the appropriate hardware index otherwise the first index will be used by default.</p>
-</section>
-</section>
+</div>
+</div>
 
 
            </div>
