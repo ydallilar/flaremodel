@@ -23,7 +23,7 @@ echo ${PYTHON_VERSION}
 
 /opt/python/${PYTHON_VERSION}/bin/pip install --upgrade pip
 /opt/python/${PYTHON_VERSION}/bin/pip install -U wheel auditwheel
-/opt/python/${PYTHON_VERSION}/bin/pip install -U cython numpy
+/opt/python/${PYTHON_VERSION}/bin/pip install -U cython numpy<1.20
 /opt/python/${PYTHON_VERSION}/bin/python setup.py bdist_wheel -d wheelhouse
 
 WHEEL=$(ls wheelhouse/*.whl)

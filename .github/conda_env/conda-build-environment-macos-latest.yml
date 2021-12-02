@@ -2,7 +2,7 @@ name: flaremodel
 channels:
   - conda-forge
 dependencies:
-  - numpy
+  - numpy<1.20
   - scipy
   - matplotlib
   - setuptools
