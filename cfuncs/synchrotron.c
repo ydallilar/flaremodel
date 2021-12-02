@@ -141,7 +141,7 @@ int j_nu_brute(double *res, int sz, double *nu, Source* source_t){
 
     eDist(e_dist, len_gamma, gamma, source_t);
 
-    #pragma omp parallel private(nu_over_nu_crit, sFs, j_nu_int)
+    #pragma omp parallel private(nu_over_nu_crit, sFs, j_nu_int, j)
     {
     
     j_nu_int = (double*) malloc(len_gamma*sizeof(double));
@@ -198,7 +198,7 @@ int a_nu_brute(double *res, int sz, double *nu, Source* source_t){
     eDist(e_dist, len_gamma, gamma, source_t);
     deDistdgam(de_distdgam, len_gamma, gamma, source_t);
 
-    #pragma omp parallel private(nu_over_nu_crit, sFs, a_nu_int)
+    #pragma omp parallel private(nu_over_nu_crit, sFs, a_nu_int, j)
     {
     
     a_nu_int = (double*) malloc(len_gamma*sizeof(double));
@@ -244,7 +244,7 @@ int j_nu_userdist(double *res, int sz, double *nu, int len_gamma, double *gamma,
     double* sFs;
 	int i,j;
 
-    #pragma omp parallel private(j_nu_int, nu_over_nu_crit, sFs)
+    #pragma omp parallel private(j_nu_int, nu_over_nu_crit, sFs, j)
     {
     
     j_nu_int = (double*) malloc(len_gamma*sizeof(double));
@@ -288,7 +288,7 @@ int a_nu_userdist(double *res, int sz, double *nu, int len_gamma, double *gamma,
 
     vec_deriv_num(de_distdgam, gamma, e_dist, len_gamma);
 
-    #pragma omp parallel private(nu_over_nu_crit, sFs, a_nu_int)
+    #pragma omp parallel private(nu_over_nu_crit, sFs, a_nu_int, j)
     {
     
     a_nu_int = (double*) malloc(len_gamma*sizeof(double));
