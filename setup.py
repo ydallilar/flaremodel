@@ -24,10 +24,10 @@ def add_gsl_header_path(include_dirs):
         try:
             proc = subp.check_output(["gsl-config", "--prefix"], shell=False)
             include_dirs.append("%s/include/" % proc.decode("utf-8").strip("\n"))
-            return include_dirs
         except:
             warnings.warn("Can't locate GSL headers. Using system defaults.")
-            return include_dirs
+    
+    return include_dirs
 
 
 # Temporary OpenMP switch
