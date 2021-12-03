@@ -1,1 +1,3 @@
 nbsphinx
+cython
+git+git://github.com/ydallilar/flaremodel@main#egg=flaremodel

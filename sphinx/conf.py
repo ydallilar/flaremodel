@@ -15,6 +15,7 @@
 # sys.path.insert(0, os.path.abspath('.'))
 
 import sphinx_rtd_theme
+import sys, os
 
 # -- Project information -----------------------------------------------------
 
@@ -23,8 +24,7 @@ copyright = '2021, Yigit Dallilar, Sebastiano von Fellenberg'
 author = 'Yigit Dallilar, Sebastiano von Fellenberg'
 
 # The full version, including alpha/beta/rc tags
-release = '0.2.0'
-
+release = '1.0.3'
 
 # -- General configuration ---------------------------------------------------
 
