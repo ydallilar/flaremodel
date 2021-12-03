@@ -10,7 +10,7 @@ Multithreading support is implemented with `OpenMP` at a lower level in the `cfu
 At the same time, these low level functions bypass the infamous *Global Interpreter Lock (GIL)* of `Python`.
 In simple words, users can implement efficient high level `multithreading` on python side when low level C functions are used and avoid the costly overheads of `multiprocessing`.  
 
-Our [documentation](https://ydallilar.github.io/flaremodel/) covers the installation, module references and examples.
+Our [documentation](https://flaremodel.readthedocs.io/) covers the installation, module references and examples.
 
 The documentation mostly covers the usage of the code. The detailed methodology/physics are covered in our [paper](https://arxiv.org/abs/2111.15273). 
 The examples introduced in the paper are provided as jupyter notebooks in `notebooks/` directory of the tarball and can also serve as a test of the compiled code.
