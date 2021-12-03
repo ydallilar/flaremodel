@@ -9,9 +9,7 @@ build:
     - libgsl0-dev
 
 python:
-  version: 3
   install:
     - requirements: sphinx/requirements.txt
-  system_packages: true
 
 
