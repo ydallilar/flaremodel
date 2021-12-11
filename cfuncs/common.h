@@ -25,11 +25,14 @@ int vec_deriv_num(double* res, double* x, double* y, int sz);
 #define BESSELK(nu, x) gsl_sf_bessel_Knu(nu, x)
 #define POW2(x) gsl_pow_2(x)
 
+typedef enum stokes {STOKES_I, STOKES_Q, STOKES_V} stokes;
+
 struct Source {
     double B;
     double ne;
     double R;
     int d_type;
+    stokes pol;
     double (*d_func) (double, void*);
     double (*n_func) (void*);
     double* params;

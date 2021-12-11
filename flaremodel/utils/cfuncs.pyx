@@ -19,6 +19,9 @@ cdef extern from "synchrotron.h":
     int c_a_nu_userdist "a_nu_userdist" (...) nogil
     int c_synchF        "synchF"        (...) nogil
     int c_b_synchF      "b_synchF"      (...) nogil
+    int c_synchG        "synchG"        (...) nogil
+    int c_synchH        "synchH"        (...) nogil
+    int c_b_synchH      "b_synchH"      (...) nogil
 
 cdef extern from "edist.h":
     double powerlaw (double, void*)
@@ -34,13 +37,20 @@ cdef extern from "edist.h":
     int c_eDist         "eDist"         (...)
 
 cdef extern from "common.h":
+
+    cpdef enum stokes:
+        STOKES_I,
+        STOKES_Q,
+        STOKES_V
+
     struct Source:
         double B
         double ne
         double R
+        int d_type
+        stokes pol
         double (*d_func) (double, void*)
         double (*n_func) (void*)
-        int d_type
         double* params
         double incang
         double gamma_min
@@ -91,7 +101,8 @@ cdef _set_source_params(Source *source_t, str edist):
 
 
 def j_nu_brute(double[::1] nu, double ne, double B, list params, str edist, double incang=-1, int steps=50, 
-                                                                    double gamma_min=1.1, double gamma_max=1e7):
+                                                                    double gamma_min=1.1, double gamma_max=1e7,
+                                                                    stokes pol=STOKES_I):
     """
     Numerical calculation of synchrotron emissivity for a given (pre-defined) electron distribution.
 
@@ -133,6 +144,7 @@ def j_nu_brute(double[::1] nu, double ne, double B, list params, str edist, doub
     source_t.gamma_max = gamma_max
     source_t.params = &t_par[0]
     source_t.incang = incang
+    source_t.pol = pol
 
     _set_source_params(<Source*> &source_t, edist)
     c_j_nu_brute(&res[0], sz, &nu[0], <Source*> &source_t)
@@ -140,7 +152,8 @@ def j_nu_brute(double[::1] nu, double ne, double B, list params, str edist, doub
     return np.asarray(res)
 
 def a_nu_brute(double[::1] nu, double ne, double B, list params, str edist, double incang=-1, int steps=50, 
-                                                                    double gamma_min=1.1, double gamma_max=1e7):
+                                                                    double gamma_min=1.1, double gamma_max=1e7,
+                                                                    stokes pol=STOKES_I):
     """
     Numerical calculation of synchrotron absorption coefficient for a given (pre-defined) electron distribution.
 
@@ -182,6 +195,7 @@ def a_nu_brute(double[::1] nu, double ne, double B, list params, str edist, doub
     source_t.gamma_max = gamma_max
     source_t.params = &t_par[0]
     source_t.incang = incang
+    source_t.pol = pol
 
     _set_source_params(<Source*> &source_t, edist)
     c_a_nu_brute(&res[0], sz, &nu[0], <Source*> &source_t)
@@ -302,12 +316,39 @@ cpdef synchF(double[::1] x):
 
     return np.asarray(res)
 
+cpdef synchG(double[::1] x):
+
+    cdef int sz = x.shape[0]
+    cdef double[::1] res = np.empty_like(x)
+
+    c_synchG(&res[0], sz, &x[0])
+
+    return np.asarray(res)
+
+cpdef synchH(double[::1] x):
+
+    cdef int sz = x.shape[0]
+    cdef double[::1] res = np.empty_like(x)
+
+    c_synchH(&res[0], sz, &x[0])
+
+    return np.asarray(res)
+
 cpdef b_synchF(double[::1] x):
 
     cdef int sz = x.shape[0]
     cdef double[::1] res = np.empty_like(x)
 
     c_b_synchF(&res[0], sz, &x[0])
+
+    return np.asarray(res)
+
+cpdef b_synchH(double[::1] x):
+
+    cdef int sz = x.shape[0]
+    cdef double[::1] res = np.empty_like(x)
+
+    c_b_synchH(&res[0], sz, &x[0])
 
     return np.asarray(res)
 
