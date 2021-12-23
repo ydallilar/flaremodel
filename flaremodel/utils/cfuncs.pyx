@@ -23,6 +23,10 @@ cdef extern from "synchrotron.h":
     int c_synchH        "synchH"        (...) nogil
     int c_b_synchH      "b_synchH"      (...) nogil
 
+cdef extern from "faraday.h":
+    int c_rho_nu_brute  "rho_nu_brute"  (...) nogil
+    int c_rho_nu_fit_huang11  "rho_nu_fit_huang11"  (...) nogil
+
 cdef extern from "edist.h":
     double powerlaw (double, void*)
     double powerlawexpcutoff (double, void*)
@@ -199,6 +203,82 @@ def a_nu_brute(double[::1] nu, double ne, double B, list params, str edist, doub
 
     _set_source_params(<Source*> &source_t, edist)
     c_a_nu_brute(&res[0], sz, &nu[0], <Source*> &source_t)
+
+    return np.asarray(res)
+
+def rho_nu_brute(double[::1] nu, double ne, double B, list params, str edist, double incang=-1, int steps=50, 
+                                                                    double gamma_min=1.1, double gamma_max=1e7,
+                                                                    stokes pol=STOKES_I):
+    """
+    Numerical calculation of Faraday coefficient for a given (pre-defined) electron distribution.
+
+    Parameters
+    ----------
+    nu : np.ndarray
+        C contiguous 1-D numpy array of frequencies to calculate the coefficient.
+    ne : float
+        electron density [1/cm3]
+    B : float
+        Magnetic fied [G]
+    params : list
+        Set of parameters for the electron distribution
+    edist : str
+        Name of the electron distribution
+    incang : float, default=-1
+        Inclination angle, -1 for angle averaged [rad]
+    steps : int, default=50
+        Steps per decade in gamma for integration
+    gamma_min : float, default=1.1
+        Lower limit of gamma range used for integration. If the distribution has the parameters, the value is taken from distribution parameters
+    gamma_max : float, default=1e7
+        Same as gamma_min but upper limit
+    Returns
+    -------
+    rho_nu : np.ndarray
+        Synchrotron absorption coefficient, same size as nu [cm-1]
+    """
+
+    cdef int sz = nu.shape[0]
+    cdef double[::1] res = np.empty_like(nu)
+    cdef double[::1] t_par = array.array('d', params)
+
+    cdef Source source_t
+    source_t.B = B
+    source_t.ne = ne
+    source_t.gamma_steps = steps
+    source_t.gamma_min = gamma_min
+    source_t.gamma_max = gamma_max
+    source_t.params = &t_par[0]
+    source_t.incang = incang
+    source_t.pol = pol
+
+    _set_source_params(<Source*> &source_t, edist)
+    c_rho_nu_brute(&res[0], sz, &nu[0], <Source*> &source_t)
+
+    return np.asarray(res)
+
+def rho_nu_fit_huang11(double[::1] nu, double ne, double B, list params, str edist, double incang=-1, int steps=50, 
+                                                                    double gamma_min=1.1, double gamma_max=1e7,
+                                                                    stokes pol=STOKES_I):
+    """
+    """
+
+    cdef int sz = nu.shape[0]
+    cdef double[::1] res = np.empty_like(nu)
+    cdef double[::1] t_par = array.array('d', params)
+
+    cdef Source source_t
+    source_t.B = B
+    source_t.ne = ne
+    source_t.gamma_steps = steps
+    source_t.gamma_min = gamma_min
+    source_t.gamma_max = gamma_max
+    source_t.params = &t_par[0]
+    source_t.incang = incang
+    source_t.pol = pol
+
+    _set_source_params(<Source*> &source_t, edist)
+    c_rho_nu_fit_huang11(&res[0], sz, &nu[0], <Source*> &source_t)
 
     return np.asarray(res)
 
