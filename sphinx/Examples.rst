@@ -12,4 +12,7 @@ Here is a list of examples:
     Notebooks/SyncCool
     Notebooks/Comparison
     Notebooks/Fitting
+    Notebooks/Polarization
+    Notebooks/Pol_HomoSp
+
 
