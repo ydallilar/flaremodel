@@ -5,14 +5,6 @@
 
 #include "common.h"
 
-int synchF(double *res, int sz, double *x);
-int synchG(double *res, int sz, double *x);
-int synchH(double *res, int sz, double *x);
-int b_synchF(double *res, int sz, double *x);
-int b_synchH(double *res, int sz, double *x);
-
-int synch_fun(stokes pol, double *res, int sz, double *x);
-
 int j_nu_brute(double *res, int sz, double *nu, Source* source_t);
 int a_nu_brute(double *res, int sz, double *nu, Source* source_t);
 

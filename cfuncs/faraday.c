@@ -3,15 +3,15 @@
 #include "common.h"
 #include "math.h"
 #include "edist.h"
-#include "stdio.h"
+#include "synch_utils.h"
 
 double p0_f(double gamma){
     return sqrt(POW2(gamma)-1);
 }
 
 double XA_f(double nu, double B, double theta) {
-    // replace this later
-    double gyr_f = e*B/(2*M_PI*M_e*c);
+
+    double gyr_f = get_nu_B(B);
     return 1e2*sqrt((M_SQRT2*sin(theta)*gyr_f)/(nu));
 }
 
@@ -66,8 +66,7 @@ double gB_f(double gamma, double nu, double B, double theta){
 
 int rho_nu_brute(double *res, int sz, double *nu, Source* source_t){
 
-    // replace this later
-    double gyr_f = e*source_t->B/(2*M_PI*M_e*c);
+    double gyr_f = get_nu_B(source_t->B);
     double B = source_t->B;
     stokes pol = source_t->pol;
     double theta = source_t->incang;
@@ -179,8 +178,7 @@ int rho_nu_brute(double *res, int sz, double *nu, Source* source_t){
 
 int rho_nu_fit_huang11(double *res, int sz, double *nu, Source* source_t){
 
-    // replace this later
-    double gyr_f = e*source_t->B/(2*M_PI*M_e*c);
+    double gyr_f = get_nu_B(source_t->B);
 
     double theta = source_t->incang;
     stokes pol = source_t->pol;
@@ -216,6 +214,8 @@ int rho_nu_fit_huang11(double *res, int sz, double *nu, Source* source_t){
         }
 
     }
+
+    return 0;
 
 }
 

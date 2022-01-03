@@ -17,15 +17,14 @@ cdef extern from "synchrotron.h":
     int c_a_nu_brute    "a_nu_brute"    (...) nogil
     int c_j_nu_userdist "j_nu_userdist" (...) nogil
     int c_a_nu_userdist "a_nu_userdist" (...) nogil
-    int c_synchF        "synchF"        (...) nogil
-    int c_b_synchF      "b_synchF"      (...) nogil
-    int c_synchG        "synchG"        (...) nogil
-    int c_synchH        "synchH"        (...) nogil
-    int c_b_synchH      "b_synchH"      (...) nogil
 
 cdef extern from "faraday.h":
     int c_rho_nu_brute  "rho_nu_brute"  (...) nogil
     int c_rho_nu_fit_huang11  "rho_nu_fit_huang11"  (...) nogil
+
+cdef extern from "synch_utils.h":
+    int c_synch_fun     "synch_fun"     (...) nogil
+    int c_b_synch_fun   "b_synch_fun"   (...) nogil
 
 cdef extern from "edist.h":
     double powerlaw (double, void*)
@@ -130,6 +129,8 @@ def j_nu_brute(double[::1] nu, double ne, double B, list params, str edist, doub
         Lower limit of gamma range used for integration. If the distribution has the parameters, the value is taken from distribution parameters
     gamma_max : float, default=1e7
         Same as gamma_min but upper limit
+    pol : stokes
+        STOKES_I, STOKES_Q or STOKES_V
     Returns
     -------
     j_nu : np.ndarray
@@ -181,6 +182,8 @@ def a_nu_brute(double[::1] nu, double ne, double B, list params, str edist, doub
         Lower limit of gamma range used for integration. If the distribution has the parameters, the value is taken from distribution parameters
     gamma_max : float, default=1e7
         Same as gamma_min but upper limit
+    pol : stokes
+        STOKES_I, STOKES_Q or STOKES_V
     Returns
     -------
     a_nu : np.ndarray
@@ -232,6 +235,8 @@ def rho_nu_brute(double[::1] nu, double ne, double B, list params, str edist, do
         Lower limit of gamma range used for integration. If the distribution has the parameters, the value is taken from distribution parameters
     gamma_max : float, default=1e7
         Same as gamma_min but upper limit
+    pol : stokes
+        STOKES_Q or STOKES_V
     Returns
     -------
     rho_nu : np.ndarray
@@ -387,48 +392,21 @@ def eDist(double[::1] gamma, double ne, list params, str edist):
 
     return np.asarray(res)
 
-cpdef synchF(double[::1] x):
+cpdef synch_fun(stokes pol, double[::1] x):
 
     cdef int sz = x.shape[0]
     cdef double[::1] res = np.empty_like(x)
 
-    c_synchF(&res[0], sz, &x[0])
+    c_synch_fun(pol, &res[0], sz, &x[0])
 
     return np.asarray(res)
 
-cpdef synchG(double[::1] x):
+cpdef b_synch_fun(stokes pol, double[::1] x):
 
     cdef int sz = x.shape[0]
     cdef double[::1] res = np.empty_like(x)
 
-    c_synchG(&res[0], sz, &x[0])
-
-    return np.asarray(res)
-
-cpdef synchH(double[::1] x):
-
-    cdef int sz = x.shape[0]
-    cdef double[::1] res = np.empty_like(x)
-
-    c_synchH(&res[0], sz, &x[0])
-
-    return np.asarray(res)
-
-cpdef b_synchF(double[::1] x):
-
-    cdef int sz = x.shape[0]
-    cdef double[::1] res = np.empty_like(x)
-
-    c_b_synchF(&res[0], sz, &x[0])
-
-    return np.asarray(res)
-
-cpdef b_synchH(double[::1] x):
-
-    cdef int sz = x.shape[0]
-    cdef double[::1] res = np.empty_like(x)
-
-    c_b_synchH(&res[0], sz, &x[0])
+    c_b_synch_fun(pol, &res[0], sz, &x[0])
 
     return np.asarray(res)
 
